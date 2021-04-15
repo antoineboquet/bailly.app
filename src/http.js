@@ -4,7 +4,7 @@ export function HttpError (response) {
 
 export default {
   fetch: async (query) => {
-    let baseUrl = 'https://api/bailly.app/'
+    let baseUrl = 'https://api.bailly.app/'
     if (process.env.NODE_ENV === 'development') baseUrl = '/api/'
 
     const queryUrl = baseUrl + query
