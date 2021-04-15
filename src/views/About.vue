@@ -33,10 +33,7 @@
                   Benjamin Georges / Licence <em>GNU Affero General Public License</em>
                   &mdash; «&nbsp;AGPL-3.0-or-later&nbsp;»
                   (<a href="COPYING" target="_blank" rel="noopener">texte&nbsp;intégral</a>)
-                  / Consulter le <a href="#">code&nbsp;source</a>.
-                  <!--/ Le grec est rendu par les jolies fontes de la
-                  <a href="https://greekfontsociety-gfs.gr/" target="_blank" rel="noopener">Greek&nbsp;Font&nbsp;Society</a>
-                  (sous <a href="http://scripts.sil.org/OFL" target="_blank" rel="noopener">licence&nbsp;OFL</a>)-->
+                  / Consulter le <a target="_blank" rel="noopener" href="https://github.com/antoineboquet/bailly.app">code&nbsp;source</a>.
                 </p>
 
                 <p>
