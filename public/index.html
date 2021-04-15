@@ -5,6 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta name="description" content="Consulter le dictionnaire grec–français d'Anatole Bailly.">
+    <script>
+      (function() {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect != location.href) {
+          history.replaceState(null, null, redirect)
+        }
+      })()
+    </script>
     <link rel="preload" href="<%= require('@/assets/fonts/Quicksand.woff2') %>" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="<%= require('@/assets/fonts/Quicksand-Bold.woff2') %>" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="<%= require('@/assets/fonts/NotoSans.woff2') %>" as="font" type="font/woff2" crossorigin>
