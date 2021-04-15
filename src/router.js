@@ -4,7 +4,7 @@ import Home from './views/Home.vue'
 
 Vue.use(Router)
 
-const APP_TITLE = 'Dictionnaire grec-français — Bailly.app'
+const APP_TITLE = 'Bailly.app — dictionnaire grec-français'
 
 const routes = [
   {
