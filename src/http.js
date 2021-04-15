@@ -4,14 +4,12 @@ export function HttpError (response) {
 
 export default {
   fetch: async (query) => {
-    let baseUrl = 'https://api.bailly.app/'
-    if (process.env.NODE_ENV === 'development') baseUrl = '/api/'
-
-    const queryUrl = baseUrl + query
+    const queryUrl = process.env.VUE_APP_API + query
 
     const params = {
       method: 'GET',
       headers: {
+        mode: 'cors',
         credentials: 'include',
         Accept: 'application/json'
       }
