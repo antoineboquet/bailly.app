@@ -1,0 +1,611 @@
+/*
+ * Règles partagées dans l'ensemble de l'application.
+ *
+ * N.B. Le CSS est optimisé dans le processus de construction
+ * de l'application avec purgeCSS.
+ */
+
+@import "./variables.scss";
+@import "~bulma";
+
+/*
+ * Liste des fontes :
+ *
+ *   - Quicksand = éléments d'interface en français
+ *   - Noto Sans = caractères latins et grecs dans la barre de recherches
+ *   - BaillyArrow = reproduction de la flèche utilisée dans le Bailly
+ *   - Didot (GFSDidot) = grec employé en titraille
+ *   - IFAOGrec = grec et caractères spéciaux pour les définitions
+ *   - Libertinus = fonte génraliste pour les définitions
+ *
+ * N.B. Optimisation : pré-charger les polices dans `public/index.html`.
+ */
+
+@font-face {
+  font-family: Quicksand;
+  font-weight: normal;
+  font-display: swap;
+  src: url('~@/assets/fonts/Quicksand.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Quicksand;
+  font-weight: bold;
+  font-display: swap;
+  src: url('~@/assets/fonts/Quicksand-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  font-weight: normal;
+  font-display: swap;
+  src: url('~@/assets/fonts/NotoSans.woff2') format('woff2');
+}
+
+@font-face {
+  // La flèche est encodée dans le caractère `E`.
+  font-family: BaillyArrow;
+  font-weight: normal;
+  font-display: swap;
+  src: url('~@/assets/fonts/BaillyArrow.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Didot;
+  font-weight: normal;
+  font-display: swap;
+  src: url('~@/assets/fonts/GFSDidot.woff2') format('woff2');
+  // https://j.hn/using-css-to-display-fonts-for-greek-and-hebrew-but-not-english/
+  unicode-range: U+0370-03FF, U+1F00-1FFF; // Caractères grecs
+}
+
+@font-face {
+  font-family: Didot;
+  font-weight: bold;
+  font-display: swap;
+  src: url('~@/assets/fonts/GFSDidot-Bold.woff2') format('woff2');
+  unicode-range: U+0370-03FF, U+1F00-1FFF, U+0042; // Grec + "B" (cf. logo)
+}
+
+@font-face {
+  font-family: IFAOGrec;
+  font-weight: normal;
+  font-display: swap;
+  src: url('~@/assets/fonts/IFAOGrec.woff2') format('woff2');
+  unicode-range: U+0370-03FF, U+1F00-1FFF, U0300-036F, UE000-F8FF; // Grec, diacritiques, zone privée
+}
+
+@font-face {
+  font-family: IFAOGrec;
+  font-weight: bold;
+  font-display: swap;
+  src: url('~@/assets/fonts/IFAOGrecBold.woff2') format('woff2');
+  unicode-range: U+0370-03FF, U+1F00-1FFF, U0300-036F, UE000-F8FF; // Grec, diacritiques, zone privée
+}
+
+@font-face {
+  font-family: Libertinus;
+  font-weight: normal;
+  font-display: swap;
+  src: url('~@/assets/fonts/LibertinusSerif.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Libertinus;
+  font-weight: bold;
+  font-display: swap;
+  src: url('~@/assets/fonts/LibertinusSerif-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Libertinus;
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+  src: url('~@/assets/fonts/LibertinusSerif-Italic.woff2') format('woff2');
+}
+
+@keyframes grow {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  1% {
+    display: block;
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleout {
+  0% {
+    transform: scale(0);
+  } 100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  } 100% {
+    opacity: 1;
+  }
+}
+
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-family: $family-sans-serif;
+
+  padding-top: $gap;
+
+  @include from($tablet) {
+    padding-top: 0;
+  }
+}
+
+/*
+ * Ajout d'une marge en fin de page pour éviter que `.history-button`
+ * ne cache la fin des définitions sur mobile.
+ */
+@include until($tablet) {
+  .home, .dictionary, .definition {
+    margin-bottom: 3rem !important;
+  }
+}
+
+ion-icon {
+  pointer-events: none;
+}
+
+.arrow::before {
+  content: "E"; // idéalement, \2192 (`right arrow`).
+	position: relative;
+	top: -5px;
+  left: -2px;
+	font-family: BaillyArrow;
+	font-style: normal;
+  font-weight: normal;
+	line-height: normal;
+}
+
+.greek {
+  font-family: Didot, $family-serif;
+}
+
+::selection {
+  background: $warning;
+  color: $text-strong;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+a {
+  text-decoration: underline;
+}
+
+#nav a,
+.list a,
+.tabs a,
+a.card,
+a.card-footer-item
+ {
+  text-decoration: none;
+}
+
+a.card:hover {
+  color: $text;
+}
+
+sup, sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+
+sub {
+  top: 0.4em;
+}
+
+mark {
+  font-weight: bold;
+  background-color: $warning;
+  color: findDarkColor($warning);
+}
+
+.navbar-brand {
+  min-height: auto;
+}
+
+.section {
+  min-width: $global-min-width;
+}
+
+.card {
+  border-radius: $radius-large;
+}
+
+.card-header {
+  border-radius: $radius-large $radius-large 0 0;
+}
+
+.static-width {
+  margin: auto;
+  max-width: $static-width !important;
+}
+
+.spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 64px;
+  height: 64px;
+  margin-top: -32px;
+  margin-left: -32px;
+  background: $grey-lighter;
+  border-radius: 100%;
+  animation: scaleout 1.0s infinite ease-in-out;
+}
+
+#app-title {
+  height: 2.6rem;
+  width: 2.6rem;
+
+  margin: auto 1rem;
+
+  padding: 0;
+
+  align-self: center;
+  overflow: hidden;
+
+  background: 0;
+  box-shadow: 0 0.125em 0.25em -0.125em rgba($scheme-invert, 0.175),
+              0 0px 0 1px rgba($scheme-invert, 0.02);
+  border-color: $grey-light;
+  border-radius: 16px;
+
+  color: $text-strong;
+  font-family: Didot, serif;
+  font-size: 2rem;
+  font-weight: bold;
+
+  user-select: none;
+
+  @include until($tablet) {
+    &:hover,
+    &:focus {
+      box-shadow: 0 0.175em 0.75em -0.125em rgba($scheme-invert, 0.075),
+      0 0px 0 1px $grey-light;
+    }
+  }
+
+  @include from($tablet) {
+    height: 3rem;
+    width: 3rem;
+
+    margin: auto 1.5rem;
+
+    background: #ebe4e0;
+    border-color: darken(#ebe4e0, 0%);
+    box-shadow: none;
+
+    & > .icon {
+      font-size: 2.4rem;
+
+      background: url("~@/assets/img/logo-background.jpg") no-repeat center;
+      background-size: cover;
+      // Cf. https://caniuse.com/#search=text-fill-color
+      -webkit-text-fill-color: transparent; // Interprété par FF/Edge
+      -webkit-background-clip: text;
+      background-clip: text;
+
+      &:hover {
+        -webkit-text-fill-color: $body-background-color; // Interprété par FF/Edge
+        -webkit-background-clip: border-box;
+        background-clip: border-box;
+        color: $body-background-color;
+      }
+    }
+  }
+}
+
+#nav {
+  min-width: $global-min-width;
+
+  transition: background 0.2s ease-in-out,
+              box-shadow 0.2s ease-in-out,
+              transform  0.2s ease-in-out;
+
+  // `max-aspect-ratio: 13/9` plutôt que `orientation: portrait`, qui
+  // ne fonctionne pas avec Chrome Mobile (lorsque le clavier s'affiche,
+  // l'orientation peut passer inopinément en mode `landscape`, car la
+  // hauteur prise par le clavier est retranchée au viewport).
+  @media screen and (max-aspect-ratio: 13/9) {
+    @include until($tablet) {
+      min-height: 7.6rem;
+      transform: translateY(0);
+
+      &.is-hidden-scroll {
+        transform: translateY(-110%); /* Une valeur > 100% permet de masquer l'ombre portée */
+      }
+
+      & > .navbar-brand,
+      & > .navbar-menu {
+        height: 4rem;
+      }
+    }
+  }
+
+  &.is-colored {
+    background: $white;
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1),
+                0 0 20px rgba(121, 114, 114, 0.15);
+    transition: 0.2s ease-in-out;
+  }
+
+  &.is-colored #search-bar input {
+    background: $grey-lightest;
+  }
+
+  &:not(.is-colored) #search-bar input:focus {
+    box-shadow: inset 0 1px 1px 0 $grey-light !important;
+  }
+
+  &.is-colored #search-bar input:focus {
+    background: $grey-lighter;
+  }
+}
+
+a.navbar-item {
+  font-weight: bold;
+  user-select: none;
+
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  &:not(#app-title) {
+    transition: color 0.15s;
+  }
+
+  &.is-active:not(#app-title) {
+    /* box-shadow: inset 0 3px 0 0 $primary !important; */ /* Style tabulation */
+    color: $primary !important;
+  }
+
+  &.is-active:hover:not(#app-title), &.is-active:focus:not(#app-title) {
+    background-color: transparent !important;
+    color: $primary !important;
+  }
+
+  &:hover:not(#app-title), &:focus:not(#app-title) {
+    color: $primary !important;
+    background-color: transparent !important;
+    transition: color 0.15s;
+  }
+
+  @include from($tablet) {
+    &:last-of-type {
+      padding-right: 1.5rem;
+    }
+  }
+
+  @include until($fullhd) {
+    & > .item-label {
+      display: none;
+    }
+  }
+}
+
+.navbar-brand, .navbar-menu {
+  flex: 1;
+}
+
+#search-bar {
+  flex: 3;
+  justify-content: center;
+  
+  @media screen and (max-aspect-ratio: 13/9) {
+    @include until($tablet) {
+      position: absolute;
+      z-index: 9999;
+      top: ($navbar-height - 1rem);
+      left: 0;
+      right: 0;
+
+      padding-left: 1rem;
+      padding-right: 1rem;
+
+      display: inline-block;
+    }
+  }
+
+  .counter {
+    user-select: none;
+    animation: opacity ease-in 0.15s 0.07s forwards;
+    opacity: 0;
+  }
+
+  .counter-no-results {
+    user-select: none;
+    animation: opacity ease-in 0.15s 0.5s forwards;
+    opacity: 0;
+  }
+
+  .control, input {
+    max-width: 100%;
+
+    @include from($tablet) {
+      width: 420px;
+    }
+
+    @include from($widescreen) {
+      width: 520px;
+    }
+  }
+
+  input {
+    height: 2.4em;
+
+    color: $text-strong;
+    font-family: "Noto Sans";
+    font-size: 110%;
+
+    background: $grey-lighter;
+    border: 0 !important;
+
+    transition: background 0.2s, box-shadow 0.1s;
+
+    &::selection {
+      background: $text-strong;
+      color: $white;
+    }
+
+    &::placeholder {
+      color: $grey !important;
+    }
+
+    &::-moz-placeholder {
+      opacity: 1;
+    }
+  }
+}
+
+#search-bar-items {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  display: flex;
+  align-items: center;
+
+  margin-right: 10px;
+  height: 100%;
+
+  & > span {
+    margin: 0 5px;
+
+    &.icon {
+      pointer-events: initial;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+  }
+
+  @include from($tablet) {
+    .icon:hover[data-tooltip]::before, .icon:hover[data-tooltip]::after {
+      visibility: visible;
+      opacity: 1;
+      transition: all 0.15s 0.3s ease-in-out;
+    }
+
+    span[data-tooltip]::before, span[data-tooltip]::after {
+      z-index: 1;
+      position: absolute;
+      cursor: initial;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.15s 0s ease-in-out;
+    }
+
+    span[data-tooltip]::before {
+      content: attr(data-tooltip);
+      white-space: nowrap;
+      top: 50px;
+      padding: 4px 8px;
+      color: $white;
+      font-size: $size-6;
+      font-weight: 500;
+      text-align: center;
+      background: rgba($black, 0.75);
+      border-radius: $radius;
+    }
+
+    span[data-tooltip]::after {
+      content: "";
+      top: 42px;
+      border-width: 4px;
+      border-style: solid;
+      border-color: transparent transparent rgba($black, 0.75) transparent;
+    }
+  }
+}
+
+.list {
+  user-select: none;
+
+  margin: $block-spacing auto;
+
+  background: $white;
+  border-radius: $radius-large;
+
+  &:not(:empty) {
+    box-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1),
+                0 0px 0 1px rgba($scheme-invert, 0.02);
+  }
+  
+  .list-header, .list-item {
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 0.05s;
+
+    &:first-of-type {
+      border-top-left-radius: $radius-large;
+      border-top-right-radius: $radius-large;
+    }
+  }
+
+  .list-header {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+
+    background: findLightColor($primary);
+
+    & > .title {
+      color: $primary;
+      user-select: none;
+    }
+  }
+
+  .list-item {
+    border-bottom: 1px solid $border-light;
+
+    & > a {
+      color: $text;
+
+      &:hover {
+        color: $black;
+      }
+    }
+
+    &:hover {
+      background: $light !important;
+    }
+
+    &:nth-child(even) {
+      background: darken($white, 1%);
+    }
+
+    &:last-of-type, &:last-of-type > span, &:last-of-type > a {
+      border-bottom: 0;
+      border-bottom-left-radius: $radius-large;
+      border-bottom-right-radius: $radius-large;
+    }
+  }
+
+  .list-header > .title, .list-item > span, .list-item > a {
+    flex-grow: 1;
+    padding: 0.5em 0.75em;
+  }
+}
