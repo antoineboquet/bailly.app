@@ -9,9 +9,9 @@ export default {
     const params = {
       method: 'GET',
       headers: {
-        mode: 'cors',
-        credentials: 'include',
-        Accept: 'application/json'
+        'Access-Control-Allow-Origin': '*',
+        Accept: 'application/json',
+        credentials: 'include'
       }
     }
 
