@@ -176,14 +176,6 @@ export default new Vuex.Store({
         state.lastWords.forEach(row => delete row.id)
         state.lastWords.reverse()
       }
-
-      dictionarySlices.onerror = (event) => {
-        console.log(event) // eslint-disable-line
-      }
-
-      dbLastWords.onerror = (event) => {
-        console.log(event) // eslint-disable-line
-      }
     },
 
     /**
