@@ -360,7 +360,7 @@ mark {
   }
 
   &:not(.is-colored) #search-bar input:focus {
-    box-shadow: inset 0 1px 1px 0 $grey-light !important;
+    box-shadow: inset 0 -1px 1px 0 $grey-light !important;
   }
 
   &.is-colored #search-bar input:focus {
