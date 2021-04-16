@@ -2,27 +2,16 @@
 @import "bulma/sass/utilities/functions.sass";
 @import "bulma/sass/utilities/derived-variables.sass";
 
-// Palette : https://coolors.co/eb5e55-3a3335-fdf0d5-e2e4d4-c6d8d3
-
-$orange: #EB5E55;
+$orange: darken(saturate(#b46f41, 25%), 5%);
 $yellow: #FDF0D5;
-$green: #E2E4D4;
-$turquoise: #C6D8D3;
-$cyan: #C6D8D3;
-$blue: #C6D8D3;
-$purple: #6f1ed8;
-$red: #D81E5B;
 
 $primary: $orange;
-$info: $blue;
-$success: $green;
 $warning: $yellow;
-$danger: $red;
 
 $link: $text;
 $link-hover: $primary;
 
-$body-background-color: #FAF9F7; // Alternative #FFFDFA (jaune pâle)
+$body-background-color: #FAF9F7; // Alternative : #FFFDFA (jaune pâle)
 
 $family-sans-serif: Quicksand, system-ui, -apple-system, "Helvetica Neue", "Helvetica", "Cantarell", "Segoe UI", "Ubuntu", "Roboto", "Oxygen", "Fira Sans", "Droid Sans", "Arial", sans-serif;
 $family-serif:  Libertinus, IFAOGrec, "Times New Roman", Times, serif;

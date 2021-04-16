@@ -181,7 +181,7 @@ ion-icon {
 }
 
 ::selection {
-  background: $warning;
+  background: darken(findLightColor($primary), 10%);
   color: $text-strong;
 }
 
@@ -298,7 +298,7 @@ mark {
     margin: auto 1.5rem;
 
     background: #ebe4e0;
-    border-color: darken(#ebe4e0, 0%);
+    border-color: #ebe4e0;
     box-shadow: none;
 
     & > .icon {
@@ -415,7 +415,7 @@ a.navbar-item {
 #search-bar {
   flex: 3;
   justify-content: center;
-  
+
   @media screen and (max-aspect-ratio: 13/9) {
     @include until($tablet) {
       position: absolute;
@@ -554,7 +554,7 @@ a.navbar-item {
     box-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1),
                 0 0px 0 1px rgba($scheme-invert, 0.02);
   }
-  
+
   .list-header, .list-item {
     display: flex;
     justify-content: flex-start;
@@ -570,7 +570,7 @@ a.navbar-item {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
 
-    background: findLightColor($primary);
+    background: darken(findLightColor($primary), 5%);
 
     & > .title {
       color: $primary;
