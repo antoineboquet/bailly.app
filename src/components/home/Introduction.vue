@@ -58,7 +58,6 @@ export default {
         { emoji: '🧓🏼', uri: 'Sôkratês' },
         { emoji: '🏛️', uri: 'parthenôn' },
         { emoji: '🎭', uri: 'theatron' },
-        { emoji: '🏟️', uri: 'stadion' },
         { emoji: '🔭', uri: 'têleskopos' },
         { emoji: '🏝️', uri: 'nêsos' },
         { emoji: '🌟', uri: 'astêr' }
@@ -177,8 +176,8 @@ export default {
   }
 
   .hero-body > .container {
-    padding-left: $gap;
-    padding-right: $gap;
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 
   .intro {
