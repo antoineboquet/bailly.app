@@ -1,0 +1,40 @@
+@import "bulma/sass/utilities/initial-variables.sass";
+@import "bulma/sass/utilities/functions.sass";
+@import "bulma/sass/utilities/derived-variables.sass";
+
+$orange: darken(saturate(#b46f41, 25%), 5%);
+$yellow: #FDF0D5;
+
+$primary: $orange;
+$warning: $yellow;
+
+$link: $text;
+$link-hover: $primary;
+
+$body-background-color: #FAF9F7; // Alternative : #FFFDFA (jaune pâle)
+
+$family-sans-serif: Quicksand, system-ui, -apple-system, "Helvetica Neue", "Helvetica", "Cantarell", "Segoe UI", "Ubuntu", "Roboto", "Oxygen", "Fira Sans", "Droid Sans", "Arial", sans-serif;
+$family-serif:  Libertinus, IFAOGrec, "Times New Roman", Times, serif;
+$family-secondary: $family-serif;
+
+$navbar-breakpoint: 0; // Désactive la transformation de .navbar-menu en `dropdown`
+$navbar-background-color: transparent;
+$navbar-height: 4.6rem;
+
+$button-family: $family-sans-serif;
+
+$card-header-color: $text-invert;
+$card-header-background-color: $primary;
+$card-header-shadow: 0;
+
+$tabs-toggle-link-border-color: $border;
+$tabs-toggle-link-hover-border-color: $border;
+$tabs-toggle-link-active-background-color: $border;
+$tabs-toggle-link-active-border-color: $border;
+$tabs-toggle-link-active-color: findColorInvert($border);
+
+$global-min-width: 320px; // Viewport d'un petit smartphone (cf. https://yesviz.com/viewport/)
+$static-width: 600px;
+
+$colors: mergeColorMaps(("white": ($white, $black), "black": ($black, $white), "light": ($light, $light-invert), "dark": ($dark, $dark-invert), "primary": ($primary, $primary-invert, $primary-light, $primary-dark), "link": ($link, $link-invert, $link-light, $link-dark), "info": ($info, $info-invert, $info-light, $info-dark), "success": ($success, $success-invert, $success-light, $success-dark), "warning": ($warning, $warning-invert, $warning-light, $warning-dark), "danger": ($danger, $danger-invert, $danger-light, $danger-dark)), $custom-colors);
+$shades: mergeColorMaps(("black-bis": $black-bis, "black-ter": $black-ter, "grey-darker": $grey-darker, "grey-dark": $grey-dark, "grey": $grey, "grey-light": $grey-light, "grey-lighter": $grey-lighter, "white-ter": $white-ter, "white-bis": $white-bis), $custom-shades);
