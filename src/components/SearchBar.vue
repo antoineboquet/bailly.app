@@ -41,7 +41,7 @@
 
         <span
           class="icon"
-          :class="{ 'has-text-black': !isInputModeBetaCode && itemsFocus, 'has-text-grey': !isInputModeBetaCode && !itemsFocus }"
+          :class="{ 'has-text-primary': !isInputModeBetaCode && itemsFocus, 'has-text-grey': !isInputModeBetaCode && !itemsFocus }"
           data-tooltip="Mode de saisie" @click="toggleInputMode"
         >
           <ion-icon
@@ -55,7 +55,7 @@
 
         <span
           class="icon"
-          :class="{ 'has-text-black': isCaseSensitive && itemsFocus, 'has-text-grey': isCaseSensitive && !itemsFocus }"
+          :class="{ 'has-text-primary': isCaseSensitive && itemsFocus, 'has-text-grey': isCaseSensitive && !itemsFocus }"
           data-tooltip="Sensibilité à la casse" @click="toggleCaseSensitivityOption"
         >
           <ion-icon
