@@ -9,12 +9,14 @@
             class="column intro is-8-tablet is-offset-2-tablet is-6-widescreen is-offset-0-widescreen"
             :class="{ 'is-offset-3-widescreen has-text-centered': (!isExampleLoading && !example) }"
           >
-            <p class="title is-size-2-widescreen is-size-4-tablet is-size-5-mobile">
-              Consultez facilement le dictionnaire <mark>grec&ndash;français</mark>
-              d'Anatole Bailly.
+            <p class="title is-size-3-widescreen is-size-4-tablet is-size-5-mobile">
+              Consultez le dictionnaire<br><mark>grec&ndash;français</mark>
+              d'Anatole Bailly<sup>&#10043;</sup>.
             </p>
 
-            <p v-html="hint" class="subtitle is-size-3-widescreen is-size-5-tablet is-size-6-mobile mt-5"></p>
+            <p v-html="hint" class="subtitle is-size-4-tablet is-size-5-mobile mt-5"></p>
+
+            <p class="is-size-5-tablet is-size-6-mobile mt-6"><sup>&#10043;</sup> Dans l'édition Bailly 2020 Hugo Chávez (<router-link :to="{ name: 'about' }">à propos</router-link>).</p>
           </div>
 
           <div
@@ -56,6 +58,9 @@ export default {
         { emoji: '🐟', uri: 'ichthus' },
         { emoji: '👨‍🌾', uri: 'geôrgos' },
         { emoji: '🧓🏼', uri: 'Sôkratês' },
+        { emoji: '🧓🏽', uri: 'Diogenês' },
+        { emoji: '🪑', uri: 'kathedra' },
+        { emoji: '🥁', uri: 'tumpanon' },
         { emoji: '🏛️', uri: 'parthenôn' },
         { emoji: '🎭', uri: 'theatron' },
         { emoji: '🔭', uri: 'têleskopos' },
