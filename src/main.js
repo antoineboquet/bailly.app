@@ -10,6 +10,9 @@ import './registerServiceWorker'
 Vue.config.productionTip = false
 Vue.config.ignoredElements = ['ion-icon']
 
-Vue.use(SimpleAnalytics, { skip: process.env.NODE_ENV !== 'production' })
+Vue.use(SimpleAnalytics, {
+  domain: 'data.baily.app',
+  skip: process.env.NODE_ENV !== 'production'
+})
 
 new Vue({ router, store, render: h => h(App) }).$mount('#app')
