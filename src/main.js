@@ -11,7 +11,7 @@ Vue.config.productionTip = false
 Vue.config.ignoredElements = ['ion-icon']
 
 Vue.use(SimpleAnalytics, {
-  domain: 'data.baily.app',
+  domain: 'data.bailly.app',
   skip: process.env.NODE_ENV !== 'production'
 })
 
