@@ -208,8 +208,17 @@
         </div>
 
         <div class="field has-text-centered">
-          <button class="button is-primary is-outlined is-rounded has-text-weight-bold" @click="resetSettings">
+          <button v-if="!hasBeenReinitialized" class="button is-primary is-outlined is-rounded has-text-weight-bold" @click="resetSettings">
             Réinitialiser
+          </button>
+
+          <button v-else class="button is-primary is-outlined is-rounded has-text-weight-bold" disabled>
+            <span class="icon">
+              <ion-icon class="ion-ionic" name="checkmark-outline" size="large">
+                <span>&check;</span>
+              </ion-icon>
+            </span>
+            <span>Réinitialisé</span>
           </button>
         </div>
       </div>
@@ -225,6 +234,8 @@ export default {
 
   data () {
     return {
+      hasBeenReinitialized: false,
+
       caseSensitivityOptions: [
         { text: 'Activée', value: true },
         { text: 'Désactivée', value: false }
@@ -253,6 +264,7 @@ export default {
       },
 
       set (value) {
+        this.hasBeenReinitialized = false
         this.$store.commit('caseSensitivitySetting', value)
       }
     },
@@ -263,6 +275,7 @@ export default {
       },
 
       set (value) {
+        this.hasBeenReinitialized = false
         this.$store.commit('displaySetting', value)
       }
     },
@@ -273,6 +286,7 @@ export default {
       },
 
       set (value) {
+        this.hasBeenReinitialized = false
         this.$store.commit('inputModeSetting', value)
       }
     }
@@ -280,6 +294,7 @@ export default {
 
   methods: {
     resetSettings () {
+      this.hasBeenReinitialized = true
       this.$store.dispatch('resetSettings')
     }
   }
