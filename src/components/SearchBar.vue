@@ -211,10 +211,10 @@ export default {
           params: { query: toTransliteration(value) || value }
         }
 
-        return this.$router.push(args).catch((error) => {}) // eslint-disable-line
+        return this.$router.replace(args).catch((error) => {}) // eslint-disable-line
       }
 
-      this.$router.push('/').catch((error) => {}) // eslint-disable-line
+      this.$router.replace('/').catch((error) => {}) // eslint-disable-line
     }
   }
 }
