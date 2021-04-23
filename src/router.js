@@ -52,7 +52,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta && to.meta.title ? to.meta.title : APP_TITLE;
+  document.title = to.meta && to.meta.title ? to.meta.title : APP_TITLE
   next()
 })
 
