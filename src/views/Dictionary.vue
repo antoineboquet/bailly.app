@@ -161,7 +161,6 @@ export default {
         query: this.query
       }).then(() => {
         this.errorMessage = undefined
-        console.log(this.query)
         this.debounceWords()
       }).catch((error) => {
         this.errorMessage = error
