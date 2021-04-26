@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce'
 import VirtualList from 'vue-virtual-scroll-list'
 import { mapGetters, mapState } from 'vuex'
 import { displayMode, keyType } from '@/enums'
@@ -103,7 +104,7 @@ export default {
     },
 
     query () {
-      this.updateDictionary()
+      this.debounceUpdateDictionary()
     },
 
     queryParam () {
@@ -143,6 +144,10 @@ export default {
   },
 
   methods: {
+    debounceUpdateDictionary: debounce(function () {
+      this.updateDictionary()
+    }, 250),
+
     updateDictionary () {
       this.$store.dispatch('updateDictionary', {
         query: this.query
