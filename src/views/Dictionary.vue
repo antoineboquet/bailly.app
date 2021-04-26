@@ -126,7 +126,7 @@ export default {
       function () {
         this.updateDictionary()
       },
-      200
+      100 // décharger l'API lors d'une saisie très rapide.
     ),
 
     debounceWords: debounce(
@@ -135,9 +135,9 @@ export default {
         const words = slice.definitions || []
 
         switch (this.displaySetting) {
-          case displayMode.TILES:
-            const chunkedArr = chunkArr(words, 12) // eslint-disable-line
-            const wordsWrapper = [] // eslint-disable-line
+          case displayMode.TILES: {
+            const chunkedArr = chunkArr(words, 12)
+            const wordsWrapper = []
 
             for (let i = 0; i < chunkedArr.length; i++) {
               wordsWrapper.push({ id: i, data: chunkedArr[i] })
@@ -145,6 +145,7 @@ export default {
 
             this.words = wordsWrapper
             break
+          }
 
           default:
             this.words = words
