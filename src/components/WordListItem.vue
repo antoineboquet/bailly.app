@@ -1,13 +1,15 @@
 <template functional>
-  <span v-if="props.source.uri == 'partialSearchMessage'"
-  class="word-list-item has-background-grey-lighter has-text-weight-bold">
-    <p class="has-text-centered">{{ props.source.word }}</p>
-  </span>
+  <div class="list-item is-size-5">
+    <span v-if="props.word.uri == 'partialSearchMessage'"
+    class="word-list-item has-background-grey-lighter has-text-weight-bold">
+      <p class="has-text-centered">{{ props.word.word }}</p>
+    </span>
 
-  <router-link v-else :to="{ name: 'definition', params: { uri: props.uri || props.source.uri }}"
-  class="greek word-list-item" :class="{ 'is-active': props.isExact || props.source.isExact }">
-    {{ props.word || props.source.word }}
-  </router-link>
+    <router-link v-else :to="{ name: 'definition', params: { uri: props.word.uri }}"
+    class="greek word-list-item" :class="{ 'is-active': props.word.isExact }">
+      {{ props.word.word }}
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -15,13 +17,7 @@ export default {
   name: 'WordListItem',
 
   props: {
-    // Nom imposé par `vue-virtual-scroll-list`
-    // Doit englober les mêmes propriétés que celles définies ci-dessous
-    source: Object,
-    // Pour un usage du composant hors `vue-virtual-scroll-list`
-    uri: String,
-    word: String,
-    isExact: Boolean
+    word: Object
   }
 }
 </script>

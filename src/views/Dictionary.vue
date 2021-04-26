@@ -6,15 +6,21 @@
       <div v-show="isFetching" class="spinner"></div>
 
       <div v-show="!isFetching" class="container is-widescreen">
-        <virtual-list
-          :data-key="'id'"
-          :data-sources="words"
-          :data-component="virtualListComponent"
-          :wrap-class="virtualListClasses"
-          :item-class="virtualListItemClasses"
-          :page-mode="true"
-          wrap-tag="nav"
-        />
+        <nav v-if="isDisplayModeTiles">
+          <word-tile-group
+            v-for="chunk in words"
+            v-bind:key="chunk.id"
+            v-bind:words="chunk.data"
+          ></word-tile-group>
+        </nav>
+
+        <nav v-else class="list static-width">
+          <word-list-item
+            v-for="word in words"
+            v-bind:key="word.uri"
+            v-bind:word="word"
+          ></word-list-item>
+        </nav>
       </div>
     </section>
 
@@ -24,7 +30,6 @@
 
 <script>
 import debounce from 'lodash/debounce'
-import VirtualList from 'vue-virtual-scroll-list'
 import { mapGetters, mapState } from 'vuex'
 import { displayMode, keyType } from '@/enums'
 import { chunkArr } from '@/libraries/array'
@@ -40,14 +45,16 @@ export default {
   components: {
     ErrorMessage,
     HistoryButton,
-    VirtualList
+    WordListItem,
+    WordTileGroup
   },
 
   data () {
     return {
       errorMessage: undefined,
       query: '',
-      queryParam: ''
+      queryParam: '',
+      words: []
     }
   },
 
@@ -63,38 +70,8 @@ export default {
       updateSearchValueWithQueryParam: state => state.triggers.updateSearchValueWithQueryParam
     }),
 
-    words () {
-      const slice = this.dictionarySlices(this.query, true) || []
-      const words = slice.definitions || []
-
-      if (this.displaySetting === displayMode.TILES) {
-        const chunkedArr = chunkArr(words, 12)
-        const wordsWrapper = []
-
-        for (let i = 0; i < chunkedArr.length; i++) {
-          wordsWrapper.push({ id: i, data: chunkedArr[i] })
-        }
-
-        return wordsWrapper
-      }
-
-      words.forEach((el, i) => el.id = i)
-      return words
-    },
-
-    virtualListClasses () {
-      if (this.displaySetting === displayMode.TILES) return ''
-      else return 'list static-width'
-    },
-
-    virtualListItemClasses () {
-      if (this.displaySetting === displayMode.TILES) return ''
-      else return 'list-item is-size-5'
-    },
-
-    virtualListComponent () {
-      if (this.displaySetting === displayMode.TILES) return WordTileGroup
-      else return WordListItem
+    isDisplayModeTiles () {
+      return this.displaySetting === displayMode.TILES
     }
   },
 
@@ -104,6 +81,7 @@ export default {
     },
 
     query () {
+      this.debounceWords()
       this.debounceUpdateDictionary()
     },
 
@@ -144,18 +122,47 @@ export default {
   },
 
   methods: {
-    debounceUpdateDictionary: debounce(function () {
-      this.updateDictionary()
-    }, 250),
+    debounceUpdateDictionary: debounce(
+      function () {
+        this.updateDictionary()
+      },
+      250
+    ),
+
+    debounceWords: debounce(
+      function () {
+        const slice = this.dictionarySlices(this.query, true) || []
+        const words = slice.definitions || []
+
+        switch (this.displaySetting) {
+          case displayMode.TILES:
+            const chunkedArr = chunkArr(words, 12) // eslint-disable-line
+            const wordsWrapper = [] // eslint-disable-line
+
+            for (let i = 0; i < chunkedArr.length; i++) {
+              wordsWrapper.push({ id: i, data: chunkedArr[i] })
+            }
+
+            this.words = wordsWrapper
+            break
+
+          default:
+            this.words = words
+            break
+        }
+
+        window.scrollTo(0, 0)
+      },
+      150
+    ),
 
     updateDictionary () {
       this.$store.dispatch('updateDictionary', {
         query: this.query
-      })
-      .then(() => {
+      }).then(() => {
         this.errorMessage = undefined
-      })
-      .catch((error) => {
+        this.debounceWords()
+      }).catch((error) => {
         this.errorMessage = error
       })
     }

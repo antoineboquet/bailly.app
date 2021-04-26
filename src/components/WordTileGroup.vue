@@ -2,7 +2,7 @@
   <div class="word-tile-group columns is-multiline"><!-- is-gapless-->
     <word-tile-item
       v-for="word in words"
-      v-bind:key="word.id"
+      v-bind:key="word.uri"
       v-bind:uri="word.uri"
       v-bind:word="word.word"
       v-bind:excerpt="word.excerpt"
@@ -23,13 +23,7 @@ export default {
   },
 
   props: {
-    source: Object
-  },
-
-  computed: {
-    words () {
-      return this.source.data
-    }
+    words: Array
   }
 }
 </script>

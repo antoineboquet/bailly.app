@@ -358,15 +358,15 @@ export default new Vuex.Store({
 
       state.isFetching = true
 
-      api.definitions(...params)
-        .then((result) => {
-          if (result.count) commit('pushSlice', { id: args.query, data: result })
-          state.isFetching = false
-        })
-        .catch((error) => {
-          state.isFetching = false
-          throw new HttpError(error)
-        })
+      try {
+        const result = await api.definitions(...params)
+        if (result.count) commit('pushSlice', { id: args.query, data: result })
+        state.isFetching = false
+      }
+      catch (error) {
+        state.isFetching = false
+        throw new HttpError(error)
+      }
     }
   }
 })
