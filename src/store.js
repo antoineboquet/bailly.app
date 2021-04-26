@@ -184,14 +184,14 @@ export default new Vuex.Store({
      * @param value {boolean} - Activation de la sensibilité à la casse.
      */
     async caseSensitivitySetting (state, value) {
+      state.dictionarySlices = []
+      state.settings.search.caseSensitive = value
+      localStorage.setItem('settings.search.caseSensitive', JSON.stringify(value))
+
       const indexedDB = await getIndexedDB()
       const transaction = indexedDB.transaction('dictionarySlices', 'readwrite')
       const db = transaction.objectStore('dictionarySlices')
       db.clear()
-
-      state.dictionarySlices = []
-      state.settings.search.caseSensitive = value
-      localStorage.setItem('settings.search.caseSensitive', JSON.stringify(value))
     },
 
     displaySetting (state, value) {
