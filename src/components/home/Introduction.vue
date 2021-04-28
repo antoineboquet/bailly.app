@@ -14,7 +14,7 @@
               d'Anatole Bailly<br>
             </p>
 
-            <p class="title is-size-5-tablet is-size-6-mobile">Dans l'édition «&nbsp;Bailly 2020 Hugo Chávez&nbsp;» (<router-link :to="{ name: 'about' }">à&nbsp;propos</router-link>).</p>
+            <p class="title is-size-5-tablet is-size-6-mobile">Dans l'édition Bailly 2020 Hugo Chávez (<router-link :to="{ name: 'about' }">à&nbsp;propos</router-link>).</p>
 
             <p v-html="hint" class="subtitle is-size-4-tablet is-size-5-mobile mt-5"></p>
           </div>
