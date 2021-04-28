@@ -178,8 +178,12 @@ export default {
       }
 
       if (!this.isInputModeBetaCode) { // scientifique
-        this.searchValue = toTransliteration(applyGammaDiphthongs(event.target.value, keyType.TRANSLITERATION))
+        let trans = toTransliteration(event.target.value)
+        trans = applyGammaDiphthongs(trans, keyType.TRANSLITERATION)
+
+        this.searchValue = trans
         this.pushSearchRoute(this.searchValue)
+
         return
       }
 
