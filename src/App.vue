@@ -57,6 +57,7 @@ export default {
   },
 
   mounted () {
+    document.getElementById('splash').style.visibility = 'hidden'
     window.addEventListener('scroll', this.onScroll)
   },
 

@@ -17,6 +17,32 @@
     <link rel="preload" href="<%= require('@/assets/fonts/LibertinusSerif-Bold.woff2') %>" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="<%= require('@/assets/fonts/LibertinusSerif-Italic.woff2') %>" as="font" type="font/woff2" crossorigin>
     <title>Bailly.app — dictionnaire grec-français en ligne</title>
+    <style>
+      @keyframes opacity {
+        0% {
+          opacity: 0;
+        } 100% {
+          opacity: 1;
+        }
+      }
+
+      #splash {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #FAF9F7;
+      }
+
+      #splash img {
+        opacity: 0;
+        animation: opacity 0.15s ease-in .75s forwards;
+      }
+    </style>
   </head>
   <body class="has-navbar-fixed-top">
     <script>
@@ -28,6 +54,7 @@
         }
       })()
     </script>
+    <div id="splash"><img src="<%= BASE_URL %>img/icons/splash-icon.png" width="96" height="96" alt="" /></div>
     <noscript>
       <strong>Cette application nécessite l'activation de JavaScript pour fonctionner.</strong>
     </noscript>
