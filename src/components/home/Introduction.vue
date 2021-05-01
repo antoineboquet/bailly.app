@@ -25,7 +25,7 @@
             class="column example"
             :class="{ 'grow': animateExample }"
           >
-            <div class="emoji">{{ example.emoji }}</div>
+            <div v-html="example.emoji" class="emoji-container"></div>
             <word-definition class="box is-size-5-mobile is-size-4" v-bind="example"></word-definition>
           </div>
         </div>
@@ -36,6 +36,7 @@
 
 <script>
 import api from '@/api'
+import Twemoji from 'twemoji'
 import { mapState } from 'vuex'
 import HistoryButton from '@/components/HistoryButton.vue'
 import WordDefinition from '@/components/WordDefinition.vue'
@@ -51,23 +52,23 @@ export default {
   data () {
     return {
       examples: [
-        { emoji: '🐏', uri: 'krios' },
-        { emoji: '🐐', uri: 'aix' },
-        { emoji: '🦊', uri: 'alôpêx' },
-        { emoji: '🦏', uri: 'rhinokerôs' },
-        { emoji: '🐟', uri: 'ichthus' },
-        { emoji: '👨‍🌾', uri: 'geôrgos' },
-        { emoji: '🧓🏼', uri: 'Sôkratês' },
-        { emoji: '🧓🏽', uri: 'Diogenês' },
-        { emoji: '🪑', uri: 'kathedra' },
-        { emoji: '🥁', uri: 'tumpanon' },
-        { emoji: '🗡️', uri: 'xiphos' },
-        { emoji: '🪝', uri: 'ankistron' },
-        { emoji: '🏛️', uri: 'parthenôn' },
-        { emoji: '🎭', uri: 'theatron' },
-        { emoji: '🔭', uri: 'têleskopos' },
-        { emoji: '🏝️', uri: 'nêsos' },
-        { emoji: '🌟', uri: 'astêr' }
+        { emoji: this.getTwemoji('🐏'), uri: 'krios' },
+        { emoji: this.getTwemoji('🐐'), uri: 'aix' },
+        { emoji: this.getTwemoji('🦊'), uri: 'alôpêx' },
+        { emoji: this.getTwemoji('🦏'), uri: 'rhinokerôs' },
+        { emoji: this.getTwemoji('🐟'), uri: 'ichthus' },
+        { emoji: this.getTwemoji('👨‍🌾'), uri: 'geôrgos' },
+        { emoji: this.getTwemoji('🧓🏼'), uri: 'Sôkratês' },
+        { emoji: this.getTwemoji('🧓🏽'), uri: 'Diogenês' },
+        { emoji: this.getTwemoji('🪑'), uri: 'kathedra' },
+        { emoji: this.getTwemoji('🥁'), uri: 'tumpanon' },
+        { emoji: this.getTwemoji('🗡️'), uri: 'xiphos' },
+        { emoji: this.getTwemoji('🪝'), uri: 'ankistron' },
+        { emoji: this.getTwemoji('🏛️'), uri: 'parthenôn' },
+        { emoji: this.getTwemoji('🎭'), uri: 'theatron' },
+        { emoji: this.getTwemoji('🔭'), uri: 'têleskopos' },
+        { emoji: this.getTwemoji('🏝️'), uri: 'nêsos' },
+        { emoji: this.getTwemoji('🌟'), uri: 'astêr' }
       ],
 
       hints: [
@@ -115,6 +116,13 @@ export default {
   },
 
   methods: {
+    getTwemoji (emoji) {
+      return Twemoji.parse(emoji, {
+        folder: 'svg',
+        ext: '.svg'
+      })
+    },
+
     removeExampleAnimation () {
       this.$store.commit('unsetHomeExampleAnimation')
     }
@@ -131,7 +139,7 @@ export default {
   line-height: 150%;
 }
 
-.emoji {
+.emoji-container {
   user-select: none;
   margin: auto;
   height: 96px;
@@ -150,7 +158,7 @@ export default {
     padding-top: 0;
   }
 
-  .emoji {
+  .emoji-container {
     position: relative;
     top: 48px;
     line-height: 96px;
@@ -164,7 +172,7 @@ export default {
 }
 
 @media only screen and (min-width: $widescreen) {
-  .emoji {
+  .emoji-container {
     height: 128px;
     width: 128px;
     float: right;
@@ -172,8 +180,6 @@ export default {
     margin-right: -48px;
     margin-left: 15px;
     margin-bottom: 15px;
-    font-size: 128px;
-    line-height: 128px;
     box-shadow: 0.25em 0.25em 0.5em -0.125em rgba($scheme-invert, 0.25),
                 0 0px 0 1px rgba($scheme-invert, 0.1);
   }
