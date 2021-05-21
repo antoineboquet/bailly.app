@@ -72,33 +72,37 @@
           <div class="column is-8-desktop is-6-widescreen">
             <div class="content has-text-justified is-size-5 is-family-secondary">
               <p>
-                <strong>Le «&nbsp;Bailly.&nbsp;»</strong> Le dictionnaire d'Anatole Bailly
-                est un ouvrage de référence incontournable pour les hellénistes francophones.
-                Depuis sa parution initiale, en 1894, le «&nbsp;Bailly&nbsp;» a connu de nombreuses rééditions
-                témoignant de son succès. Le texte que nous proposons est fondé sur la Quatrième
-                édition (1935), aujourd'hui passée dans le domaine public. Celui-ci a fait l'objet
-                de révisions substantielles, que nous détaillons ci-dessous.
+                <strong>Le «&nbsp;Bailly.&nbsp;»</strong> Le dictionnaire
+                d'Anatole Bailly est un ouvrage de référence incontournable pour
+                les hellénistes francophones. Depuis sa parution initiale, en 1894,
+                le «&nbsp;Bailly&nbsp;» a connu de nombreuses rééditions témoignant
+                de son succès. Le texte que nous proposons est fondé sur la Quatrième
+                édition (1935), aujourd'hui passée dans le domaine public. Celui-ci a
+                fait l'objet de révisions substantielles, que nous détaillons ci-dessous.
               </p>
 
               <p>
-                <strong>Numérisation et révision.</strong> C'est à Gérard Gréco
-                et aux personnes qui ont œuvré à ses côtés qu'il faut rendre
-                hommage pour cette édition du «&nbsp;Bailly.&nbsp;» Celle-ci
-                repose sur un important travail de numérisation et de révision
-                entrepris à partir de l'édition de 1935. Ce travail de révision
-                relève d'abord de la revue et de la correction de la numérisation
-                automatique du texte (procédé de reconnaissance optique de caractères
-                ou <em>océrisation</em>). Il relève par ailleurs de la correction
-                des erreurs notables du texte de 1935 et de la normalisation des
-                entrées. C'est pourquoi l'édition numérique qui vous est ici
-                présentée s'intitule, à bon droit, <em>«&nbsp;Bailly 2020 Hugo Chávez.&nbsp;»</em>
+                <strong>Numérisation et révision.</strong> Cette application a été rendue
+                possible par le travail préalable de Gérard Gréco et de son équipe. En effet,
+                le <em>«&nbsp;Bailly 2020 Hugo Chávez&nbsp;»</em>, que nous mettons à votre
+                disposition, est le résultat d'une entreprise de numérisation et de révision
+                sans précédent du dictionnaire d'Anatole Bailly. Il aura d'abord fallu procéder
+                à la numérisation du texte (procédé de reconnaissance optique des caractères ou
+                <em>océrisation</em>), puis à une fastidieuse étape de correction manuelle.
+                Le texte de 1935 n'étant pas exempt d'erreurs, un travail de correction,
+                effectué à partir d'ouvrages de référence, a ensuite été nécessaire.
+                Enfin, l'équipe de M. Gréco a procédé à une mise à jour des étymologies et de
+                la toponymie, ainsi qu'à la normalisation des références.
+                Pour plus de détails concernant cette édition numérique, nous vous conseillons
+                de vous reporter à sa <a :href="`${publicPath}pdf/notice-édition-2020.pdf`" target="_blank">notice</a>.
               </p>
 
               <p>
                 <strong>Autres éditions numériques.</strong> Vous trouverez
                 sur la page du projet de numérisation du «&nbsp;Bailly&nbsp;» une
                 <a href="http://gerardgreco.free.fr/spip.php?article52" target="_blank" rel="noopener">édition PDF</a>
-                reproduisant la mise en page d'origine. Le <a href="https://archive.org/details/BaillyDictionnaireGrecFrancais">fac-similé</a>
+                proposant une mise en page similaire à celle de l'ouvrage d'origine.
+                Le <a href="https://archive.org/details/BaillyDictionnaireGrecFrancais">fac-similé</a>
                 de l'édition de 1935 est par ailleurs disponible sur l'<em>Internet Archive</em>.
               </p>
             </div>
@@ -157,7 +161,8 @@ export default {
       emailAddress: 'contact@bailly.app',
       emailSubject: '[bailly.app]',
       showAddress: false,
-      toggleContributors: false
+      toggleContributors: false,
+      publicPath: process.env.BASE_URL
     }
   }
 }
