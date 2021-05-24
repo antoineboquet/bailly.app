@@ -73,14 +73,18 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import { inputMode, keyType } from '@/enums'
+
 import {
-  applyGammaDiphthongs,
-  applyGreekVariants,
-  removeDiacritics,
+  keyType,
   toGreek,
   toTransliteration
-} from '@/libraries/textTransform'
+} from 'greek-conversion'
+
+import { inputMode } from '@/enums'
+
+const conversionOptions = {
+  removeDiacritics: true
+}
 
 export default {
   name: 'SearchBar',
@@ -114,9 +118,9 @@ export default {
   watch: {
     isInputModeBetaCode () {
       if (this.isInputModeBetaCode) {
-        this.searchValue = toGreek(this.searchValue, keyType.TRANSLITERATION)
+        this.searchValue = toGreek(this.searchValue, keyType.TRANSLITERATION, conversionOptions)
       } else { // Scientifique
-        this.searchValue = toTransliteration(this.searchValue)
+        this.searchValue = toTransliteration(this.searchValue, keyType.GREEK, conversionOptions)
       }
     },
 
@@ -125,7 +129,7 @@ export default {
         const queryParam = this.$route.params.query || Object.keys(this.$route.query)[0] || ''
 
         if (this.isInputModeBetaCode) {
-          this.searchValue = toGreek(queryParam, keyType.TRANSLITERATION)
+          this.searchValue = toGreek(queryParam, keyType.TRANSLITERATION, conversionOptions)
         } else {
           this.searchValue = queryParam
         }
@@ -169,19 +173,14 @@ export default {
     updateInput (event) {
       // Empêcher les recherches trop longues.
       const rule1 = (this.searchValue.length + 1 > this.searchValueMaxLength)
-      // Ne pas accepter des valeurs autres que des lettres ou des espaces (beta code).
-      const rule2 = (this.isInputModeBetaCode && event.data && /[^a-zα-ω\s]+/i.test(removeDiacritics(event.data)))
 
-      if (rule1 || rule2) {
+      if (rule1) {
         this.searchValue = this.lastSearchValue
         return
       }
 
       if (!this.isInputModeBetaCode) { // scientifique
-        let trans = toTransliteration(event.target.value)
-        trans = applyGammaDiphthongs(trans, keyType.TRANSLITERATION)
-
-        this.searchValue = trans
+        this.searchValue = event.target.value // applyGammaDiphtongs() needed here.
         this.pushSearchRoute(this.searchValue)
 
         return
@@ -189,10 +188,7 @@ export default {
 
       // beta code
 
-      let greek = toGreek(event.target.value, keyType.BETA_CODE)
-      greek = applyGreekVariants(applyGammaDiphthongs(greek, keyType.GREEK))
-
-      this.searchValue = greek
+      this.searchValue = toGreek(event.target.value, keyType.BETA_CODE, conversionOptions)
       this.lastSearchValue = this.searchValue
 
       const selection = {
@@ -212,7 +208,12 @@ export default {
       if (value && value.length) {
         const args = {
           name: 'search',
-          params: { query: toTransliteration(value) || value }
+          params: {
+            /**
+             * @fixme appliquer `conversionOptions` supprime fautivement les accents circonflexes.
+             */
+            query: toTransliteration(value, keyType.GREEK/*, conversionOptions*/) || value
+          }
         }
 
         return this.$router.replace(args).catch((error) => {}) // eslint-disable-line

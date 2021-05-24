@@ -1,5 +1,4 @@
 import http from '@/http'
-import { removeGreekVariants } from '@/libraries/textTransform'
 
 const MAX_LIMIT = 1000
 
@@ -24,6 +23,10 @@ function isSearchValueAcceptable (str) {
   )
 
   return truth ? false : true
+}
+
+function removeGreekVariants (str) {
+  return str.replace(/ϐ/g, 'β').replace(/ς/g, 'σ')
 }
 
 export default {

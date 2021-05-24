@@ -29,11 +29,11 @@
 </template>
 
 <script>
+import { keyType, toGreek } from 'greek-conversion'
 import debounce from 'lodash/debounce'
 import { mapGetters, mapState } from 'vuex'
-import { displayMode, keyType } from '@/enums'
+import { displayMode } from '@/enums'
 import { chunkArr } from '@/libraries/array'
-import { toGreek } from '@/libraries/textTransform'
 import ErrorMessage from '@/components/ErrorMessage.vue'
 import HistoryButton from '@/components/HistoryButton.vue'
 import WordListItem from '@/components/WordListItem.vue'
@@ -86,7 +86,7 @@ export default {
     },
 
     queryParam () {
-      this.query = toGreek(this.queryParam, keyType.TRANSLITERATION)
+      this.query = toGreek(this.queryParam, keyType.TRANSLITERATION, { removeDiacritics: true })
     },
 
     /**
