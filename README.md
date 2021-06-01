@@ -2,7 +2,7 @@
   <img width="192" height="192" src="public/img/icons/android-chrome-192x192.png">
 </p>
 
-> Ce dépôt contient uniquement le client de l'application Bailly. Vous trouverez la partie serveur dans le dépôt [bailly-server](https://github.com/antoineboquet/bailly-server).
+> Ce dépôt contient uniquement le client de l'application Bailly. Le serveur se trouve dans le dépôt [bailly-server](https://github.com/antoineboquet/bailly-server).
 
 Veuillez noter que cette application utilise les données du [Bailly 2020 Hugo Chávez](http://gerardgreco.free.fr/spip.php?article52) (Gérard Gréco, André Charbonnet, Mark De Wilde, Bernard Maréchal & contributeurs), distribuées sous licence Creative Commons Attribution - Pas d'Utilisation Commerciale - Pas de Modification — « CC BY-NC-ND 4.0 ».
 
