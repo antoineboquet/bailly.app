@@ -75,7 +75,9 @@
 import { mapGetters, mapState } from 'vuex'
 
 import {
+  applyGammaDiphthongs,
   keyType,
+  removeDiacritics,
   toGreek,
   toTransliteration
 } from 'greek-conversion'
@@ -118,9 +120,17 @@ export default {
   watch: {
     isInputModeBetaCode () {
       if (this.isInputModeBetaCode) {
-        this.searchValue = toGreek(this.searchValue, keyType.TRANSLITERATION, conversionOptions)
-      } else { // Scientifique
-        this.searchValue = toTransliteration(this.searchValue, keyType.GREEK, conversionOptions)
+        this.searchValue = toGreek(
+          this.searchValue,
+          keyType.TRANSLITERATION,
+          conversionOptions
+        )
+      } else {
+        this.searchValue = toTransliteration(
+          this.searchValue,
+          keyType.GREEK,
+          conversionOptions
+        )
       }
     },
 
@@ -172,34 +182,34 @@ export default {
 
     updateInput (event) {
       // Empêcher les recherches trop longues.
-      const rule1 = (this.searchValue.length + 1 > this.searchValueMaxLength)
-
-      if (rule1) {
+      if (this.searchValue.length + 1 > this.searchValueMaxLength) {
         this.searchValue = this.lastSearchValue
         return
       }
 
-      if (!this.isInputModeBetaCode) { // scientifique
-        this.searchValue = event.target.value // applyGammaDiphtongs() needed here.
-        this.pushSearchRoute(this.searchValue)
+      switch (this.isInputModeBetaCode) {
+        case true: {
+          event.target.value = removeDiacritics(event.target.value, keyType.GREEK)
+          this.searchValue = toGreek(event.target.value, keyType.BETA_CODE, conversionOptions)
 
-        return
+          this.lastSearchValue = this.searchValue
+
+          const selection = {
+            start: event.target.selectionStart,
+            end: event.target.selectionEnd
+          }
+
+          this.$nextTick(function () {
+            // Mise à jour de la sélection (nécessite de passer par une référence).
+            this.$refs.inputSearch.selectionEnd = selection.start
+          })
+          break
+        }
+
+        case false:
+          this.searchValue = applyGammaDiphthongs(event.target.value, keyType.TRANSLITERATION)
+          break
       }
-
-      // beta code
-
-      this.searchValue = toGreek(event.target.value, keyType.BETA_CODE, conversionOptions)
-      this.lastSearchValue = this.searchValue
-
-      const selection = {
-        start: event.target.selectionStart,
-        end: event.target.selectionEnd
-      }
-
-      this.$nextTick(function () {
-        // Mise à jour de la sélection (nécessite de passer par une référence).
-        this.$refs.inputSearch.selectionEnd = selection.start
-      })
 
       this.pushSearchRoute(this.searchValue)
     },
@@ -209,10 +219,9 @@ export default {
         const args = {
           name: 'search',
           params: {
-            /**
-             * @fixme appliquer `conversionOptions` supprime fautivement les accents circonflexes.
-             */
-            query: toTransliteration(value, keyType.GREEK/*, conversionOptions*/) || value
+            query: (this.isInputModeBetaCode)
+              ? toTransliteration(value, keyType.GREEK, conversionOptions)
+              : value
           }
         }
 
