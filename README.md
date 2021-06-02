@@ -1,12 +1,15 @@
-<p align="center">
-  <img width="192" height="192" src="public/img/icons/android-chrome-192x192.png">
-</p>
-
 > Ce dépôt contient uniquement le client de l'application Bailly. Le serveur se trouve dans le dépôt [bailly-server](https://github.com/antoineboquet/bailly-server).
 
-Veuillez noter que cette application utilise les données du [Bailly 2020 Hugo Chávez](http://gerardgreco.free.fr/spip.php?article52) (Gérard Gréco, André Charbonnet, Mark De Wilde, Bernard Maréchal & contributeurs), distribuées sous licence Creative Commons Attribution - Pas d'Utilisation Commerciale - Pas de Modification — « CC BY-NC-ND 4.0 ».
+<p align="center">
+  <br><br><img width="192" height="192" src="public/img/icons/android-chrome-192x192.png">
+</p>
 
----
+<p align="center">
+  Une application web pour rendre accessible à tous<br>
+  le dictionnaire grec–français de référence d'Anatole Bailly.<br><br><br>
+</p>
+
+## Licence
 
 Copyright (C) 2021  Antoine Boquet, Benjamin Georges
 
@@ -22,3 +25,7 @@ GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see https://www.gnu.org/licenses/agpl-3.0.fr.html.
+
+### Données
+
+Cette application utilise les données du [Bailly 2020 Hugo Chávez](http://gerardgreco.free.fr/spip.php?article52) (Gérard Gréco, André Charbonnet, Mark De Wilde, Bernard Maréchal & contributeurs), distribuées sous licence Creative Commons Attribution - Pas d'Utilisation Commerciale - Pas de Modification — « CC BY-NC-ND 4.0 ».
