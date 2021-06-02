@@ -29,3 +29,11 @@ along with this program.  If not, see https://www.gnu.org/licenses/agpl-3.0.fr.h
 ### Données
 
 Cette application utilise les données du [Bailly 2020 Hugo Chávez](http://gerardgreco.free.fr/spip.php?article52) (Gérard Gréco, André Charbonnet, Mark De Wilde, Bernard Maréchal & contributeurs), distribuées sous licence Creative Commons Attribution - Pas d'Utilisation Commerciale - Pas de Modification — « CC BY-NC-ND 4.0 ».
+
+### Fontes grecques
+
+Cette application utilise la fonte [IFAOGrec](https://www.ifao.egnet.net/publications/outils/polices/#grec) (Jean-Luc Fournet, Ralph Hancock & Adam Bülow-Jacobsen), qui est libre de tous droits, ainsi que les fontes de la [Greek Font Society](https://www.greekfontsociety-gfs.gr/), distribuées sous licence [OFL](https://scripts.sil.org/cms/scripts/page.php?item_id=OFL_web).
+
+### Autres éléments
+
+[Ionicons](https://ionic.io/ionicons) (Ionic / MIT License), [Twemoji](https://twemoji.twitter.com/) (Twitter, Inc / [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/)).
