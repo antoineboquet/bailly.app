@@ -6,7 +6,7 @@
 
 <p align="center">
   Une application web pour rendre accessible à tous<br>
-  le dictionnaire grec–français de référence d'Anatole Bailly.<br><br><br>
+  le dictionnaire grec–français de référence d'Anatole Bailly.<br><br>
 </p>
 
 ## Licence
