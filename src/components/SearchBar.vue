@@ -15,6 +15,7 @@
         @focus="onFocus"
         @blur="onBlur"
         @input="updateInput"
+        @compositionupdate="OverrideIME"
       />
 
       <div
@@ -212,6 +213,11 @@ export default {
       }
 
       this.pushSearchRoute(this.searchValue)
+    },
+    
+    // Fix for Gboard (Android)
+    OverrideIME () {
+      this.$refs.inputSearch.dispatchEvent(new CompositionEvent('compositionend'))
     },
 
     pushSearchRoute (value) {
