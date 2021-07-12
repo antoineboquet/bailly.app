@@ -15,6 +15,7 @@
         @focus="onFocus"
         @blur="onBlur"
         @input="updateInput"
+        @compositionupdate="OverrideIME"
       />
 
       <div
@@ -73,14 +74,20 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import { inputMode, keyType } from '@/enums'
+
 import {
   applyGammaDiphthongs,
-  applyGreekVariants,
+  keyType,
   removeDiacritics,
   toGreek,
   toTransliteration
-} from '@/libraries/textTransform'
+} from 'greek-conversion'
+
+import { inputMode } from '@/enums'
+
+const conversionOptions = {
+  removeDiacritics: true
+}
 
 export default {
   name: 'SearchBar',
@@ -114,9 +121,17 @@ export default {
   watch: {
     isInputModeBetaCode () {
       if (this.isInputModeBetaCode) {
-        this.searchValue = toGreek(this.searchValue, keyType.TRANSLITERATION)
-      } else { // Scientifique
-        this.searchValue = toTransliteration(this.searchValue)
+        this.searchValue = toGreek(
+          this.searchValue,
+          keyType.TRANSLITERATION,
+          conversionOptions
+        )
+      } else {
+        this.searchValue = toTransliteration(
+          this.searchValue,
+          keyType.GREEK,
+          conversionOptions
+        )
       }
     },
 
@@ -125,7 +140,7 @@ export default {
         const queryParam = this.$route.params.query || Object.keys(this.$route.query)[0] || ''
 
         if (this.isInputModeBetaCode) {
-          this.searchValue = toGreek(queryParam, keyType.TRANSLITERATION)
+          this.searchValue = toGreek(queryParam, keyType.TRANSLITERATION, conversionOptions)
         } else {
           this.searchValue = queryParam
         }
@@ -168,51 +183,52 @@ export default {
 
     updateInput (event) {
       // Empêcher les recherches trop longues.
-      const rule1 = (this.searchValue.length + 1 > this.searchValueMaxLength)
-      // Ne pas accepter des valeurs autres que des lettres ou des espaces (beta code).
-      const rule2 = (this.isInputModeBetaCode && event.data && /[^a-zα-ω\s]+/i.test(removeDiacritics(event.data)))
-
-      if (rule1 || rule2) {
+      if (this.searchValue.length + 1 > this.searchValueMaxLength) {
         this.searchValue = this.lastSearchValue
         return
       }
 
-      if (!this.isInputModeBetaCode) { // scientifique
-        let trans = toTransliteration(event.target.value)
-        trans = applyGammaDiphthongs(trans, keyType.TRANSLITERATION)
+      switch (this.isInputModeBetaCode) {
+        case true: {
+          event.target.value = removeDiacritics(event.target.value, keyType.GREEK)
+          this.searchValue = toGreek(event.target.value, keyType.BETA_CODE, conversionOptions)
 
-        this.searchValue = trans
-        this.pushSearchRoute(this.searchValue)
+          this.lastSearchValue = this.searchValue
 
-        return
+          const selection = {
+            start: event.target.selectionStart,
+            end: event.target.selectionEnd
+          }
+
+          this.$nextTick(function () {
+            // Mise à jour de la sélection (nécessite de passer par une référence).
+            this.$refs.inputSearch.selectionEnd = selection.start
+          })
+          break
+        }
+
+        case false:
+          this.searchValue = applyGammaDiphthongs(event.target.value, keyType.TRANSLITERATION)
+          break
       }
-
-      // beta code
-
-      let greek = toGreek(event.target.value, keyType.BETA_CODE)
-      greek = applyGreekVariants(applyGammaDiphthongs(greek, keyType.GREEK))
-
-      this.searchValue = greek
-      this.lastSearchValue = this.searchValue
-
-      const selection = {
-        start: event.target.selectionStart,
-        end: event.target.selectionEnd
-      }
-
-      this.$nextTick(function () {
-        // Mise à jour de la sélection (nécessite de passer par une référence).
-        this.$refs.inputSearch.selectionEnd = selection.start
-      })
 
       this.pushSearchRoute(this.searchValue)
+    },
+    
+    // Fix for Gboard (Android)
+    OverrideIME () {
+      this.$refs.inputSearch.dispatchEvent(new CompositionEvent('compositionend'))
     },
 
     pushSearchRoute (value) {
       if (value && value.length) {
         const args = {
           name: 'search',
-          params: { query: toTransliteration(value) || value }
+          params: {
+            query: (this.isInputModeBetaCode)
+              ? toTransliteration(value, keyType.GREEK, conversionOptions)
+              : value
+          }
         }
 
         return this.$router.replace(args).catch((error) => {}) // eslint-disable-line
