@@ -20,8 +20,8 @@ module.exports = {
 
   pwa: {
     name: 'Bailly',
-    themeColor: '#EB5E55',
-    msTileColor: '#EB5E55',
+    themeColor: '#FFFFFF',
+    msTileColor: '#FAF9F7',
     manifestOptions: {
       start_url: '/',
       background_color: '#FAF9F7'
