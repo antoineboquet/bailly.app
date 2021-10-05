@@ -57,7 +57,11 @@ export default {
   },
 
   mounted () {
+    // Masquer le visuel de chargement (v. `public/index.html`).
     document.getElementById('splash').style.visibility = 'hidden'
+    // Attacher la classe `is-colored` à la barre de navigation sur mobile.
+    if (window.innerWidth <= 768) this.$refs.navbar.classList.add('is-colored')
+
     window.addEventListener('scroll', this.onScroll)
   },
 
@@ -70,13 +74,16 @@ export default {
      * Place des classes utilitaires pour afficher/masquer l'arrière-plan
      * de la barre de navigation et afficher/masquer la barre de navigation
      * elle-même en foncion de la valeur de défilement.
+     * 
+     * N.B. Sur mobile, la barre de navigation est toujours colorée.
      */
     onScroll () {
       const navbar = this.$refs.navbar
       const scrollY = window.scrollY
 
-      if (this.$route.name !== 'about') {
-        // Afficher/masquer l'arrière-plan de la barre de navigation
+      if (window.innerWidth <= 768 || this.$route.name === 'about') {
+        navbar.classList.add('is-colored')
+      } else {
         if (scrollY > 0) {
           navbar.classList.add('is-colored')
         } else {
@@ -84,7 +91,7 @@ export default {
         }
       }
 
-      // Afficher/masquer la barre de navigation sur les mobiles/tablettes
+      // Afficher/masquer la barre de navigation sur les mobiles et tablettes.
       if (scrollY > (navbar.clientHeight * 5) && scrollY > this.lastScrollPosition) {
         navbar.classList.add('is-hidden-scroll')
       } else {
