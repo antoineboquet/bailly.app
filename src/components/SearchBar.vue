@@ -1,5 +1,13 @@
 <template>
-  <div id="search-bar">
+  <div id="search-bar" class="is-flex-mobile">
+    <button v-if="(this.$route.name === 'definition' && this.searchValue && resultsCounter > 1)" @click="goToSearchResults" class="button back-to-search is-hidden-tablet mr-2">
+      <span class="icon is-large has-text-white">
+        <ion-icon class="ion-ionic" name="arrow-back-outline">
+          <span >&larr;</span>
+        </ion-icon>
+      </span>
+    </button>
+
     <div class="control">
       <input
         autofocus
@@ -15,55 +23,27 @@
         @focus="onFocus"
         @blur="onBlur"
         @input="updateInput"
-        @compositionupdate="OverrideIME"
+        @compositionupdate="overrideIME"
       />
 
-      <div
-        id="search-bar-items"
-        v-bind:class="{
-          'has-text-grey': itemsFocus,
-          'has-text-grey-light': !itemsFocus
-        }"
-      >
-        <span
-          v-show="resultsCounter >= 1 && searchValue.length >= 1"
-          class="tag counter is-light has-text-weight-bold"
-        >
+      <div id="search-bar-items" v-bind:class="{ 'has-text-grey': itemsFocus, 'has-text-grey-light': !itemsFocus }">
+        <span v-show="resultsCounter >= 1 && searchValue.length >= 1" class="tag counter is-light has-text-weight-bold">
           {{ resultsCounter }}
         </span>
-
-        <!--<span
-          v-show="!resultsCounter && searchValue.length >= 1"
-          class="tag counter-no-results is-primary has-text-weight-bold"
-        >
+        <!--
+        <span v-show="!resultsCounter && searchValue.length >= 1" class="tag counter-no-results is-primary has-text-weight-bold">
           <span class="is-hidden-mobile">Aucun résultat</span>
           <span class="is-hidden-tablet">0</span>
-        </span>-->
-
-        <span
-          class="icon"
-          :class="{ 'has-text-primary': !isInputModeBetaCode && itemsFocus, 'has-text-grey': !isInputModeBetaCode && !itemsFocus }"
-          data-tooltip="Mode de saisie" @click="toggleInputMode"
-        >
-          <ion-icon
-            class="ion-ionic"
-            name="repeat-outline"
-            size="large"
-          >
+        </span>
+        -->
+        <span class="icon" :class="{ 'has-text-primary': !isInputModeBetaCode && itemsFocus, 'has-text-grey': !isInputModeBetaCode && !itemsFocus }" data-tooltip="Mode de saisie" @click="toggleInputMode">
+          <ion-icon class="ion-ionic" name="repeat-outline" size="large">
             <span>&rlarr;</span>
           </ion-icon>
         </span>
 
-        <span
-          class="icon"
-          :class="{ 'has-text-primary': isCaseSensitive && itemsFocus, 'has-text-grey': isCaseSensitive && !itemsFocus }"
-          data-tooltip="Sensibilité à la casse" @click="toggleCaseSensitivityOption"
-        >
-          <ion-icon
-            class="ion-ionic"
-            name="text-outline"
-            size="large"
-          >
+        <span class="icon" :class="{ 'has-text-primary': isCaseSensitive && itemsFocus, 'has-text-grey': isCaseSensitive && !itemsFocus }" data-tooltip="Sensibilité à la casse" @click="toggleCaseSensitivityOption">
+          <ion-icon class="ion-ionic" name="text-outline" size="large">
             <span>Aa</span>
           </ion-icon>
         </span>
@@ -172,6 +152,10 @@ export default {
       this.$store.commit('caseSensitivitySetting', !this.isCaseSensitive)
     },
 
+    goToSearchResults () {
+      if (this.searchValue) this.pushSearchRoute(this.searchValue)
+    },
+
     onFocus () {
       this.itemsFocus = true
       if (this.searchValue) this.pushSearchRoute(this.searchValue)
@@ -215,8 +199,8 @@ export default {
       this.pushSearchRoute(this.searchValue)
     },
     
-    // Fix for Gboard (Android)
-    OverrideIME () {
+    // Android/GBoard : prévient la rétention de l'entrée utilisateur.
+    overrideIME () {
       this.$refs.inputSearch.dispatchEvent(new CompositionEvent('compositionend'))
     },
 
@@ -239,3 +223,19 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  @media screen and (max-width: $tablet) {
+    #search-bar .control {
+      flex-grow: 2;
+    }
+  }
+
+  .back-to-search {
+    width: 2.4em;
+    height: 2.4em;
+    background: $grey-dark;
+    border: 0;
+    border-radius: 9999px;
+  }
+</style>
