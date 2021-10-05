@@ -2,6 +2,10 @@
 @import "bulma/sass/utilities/functions.sass";
 @import "bulma/sass/utilities/derived-variables.sass";
 
+// Fixe les problèmes de continuité entre interface
+// mobile et tablette (valeur par défaut : 769px).
+$tablet: 768px;
+
 $orange: darken(saturate(#b46f41, 25%), 5%);
 $yellow: #FDF0D5;
 
@@ -34,7 +38,7 @@ $tabs-toggle-link-active-border-color: $border;
 $tabs-toggle-link-active-color: findColorInvert($border);
 
 $global-min-width: 320px; // Viewport d'un petit smartphone (cf. https://yesviz.com/viewport/)
-$static-width: 600px;
+$static-width: 640px;
 
 $colors: mergeColorMaps(("white": ($white, $black), "black": ($black, $white), "light": ($light, $light-invert), "dark": ($dark, $dark-invert), "primary": ($primary, $primary-invert, $primary-light, $primary-dark), "link": ($link, $link-invert, $link-light, $link-dark), "info": ($info, $info-invert, $info-light, $info-dark), "success": ($success, $success-invert, $success-light, $success-dark), "warning": ($warning, $warning-invert, $warning-light, $warning-dark), "danger": ($danger, $danger-invert, $danger-light, $danger-dark)), $custom-colors);
 $shades: mergeColorMaps(("black-bis": $black-bis, "black-ter": $black-ter, "grey-darker": $grey-darker, "grey-dark": $grey-dark, "grey": $grey, "grey-light": $grey-light, "grey-lighter": $grey-lighter, "white-ter": $white-ter, "white-bis": $white-bis), $custom-shades);
