@@ -245,7 +245,7 @@ export default new Vuex.Store({
       if (areResultsTooLarge || (isPartialSearch && args.data.countAll > args.data.count)) {
         args.data.definitions.push({
           uri: 'partialSearchMessage',
-          word: 'Précisez votre recherche pour voir tous les résultats.'
+          word: 'Précisez votre recherche pour voir plus de résultats.'
         })
       }
 
