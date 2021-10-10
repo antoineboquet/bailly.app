@@ -43,9 +43,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import HomeDocuments from '@/components/home/Documents.vue'
-import HomeHistory from '@/components/home/History.vue'
-import HomeIntroduction from '@/components/home/Introduction.vue'
+import HomeDocuments from '@/views/home/Documents.vue'
+import HomeHistory from '@/views/home/History.vue'
+import HomeIntroduction from '@/views/home/Introduction.vue'
 
 export default {
   name: 'Home',
