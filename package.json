@@ -11,7 +11,7 @@
   "dependencies": {
     "bulma": "^0.9.3",
     "core-js": "^3.16.2",
-    "greek-conversion": "^0.9.0",
+    "greek-conversion": "^0.9.1",
     "lodash": "^4.17.21",
     "register-service-worker": "^1.7.1",
     "simple-analytics-vue": "^1.1.5",
