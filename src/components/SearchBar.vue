@@ -66,6 +66,7 @@ import {
 import { inputMode } from '@/enums'
 
 const conversionOptions = {
+  preserveWhitespace: true,
   removeDiacritics: true
 }
 
@@ -166,6 +167,11 @@ export default {
     },
 
     updateInput (event) {
+      // Supprimer les espaces en début de recherche et
+      // les espaces multiples en fin de recherche.
+      event.target.value = event.target.value.trimStart()
+      event.target.value = event.target.value.replace(/\s{2,}/g, ' ')
+      
       // Empêcher les recherches trop longues.
       if (this.searchValue.length + 1 > this.searchValueMaxLength) {
         this.searchValue = this.lastSearchValue
