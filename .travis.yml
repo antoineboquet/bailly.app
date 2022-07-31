@@ -2,10 +2,12 @@ branches:
   only:
   - master
 
+dist: focal
+
 language: node_js
 
 node_js:
-  - "node"
+  - 16
 
 cache: npm
 
