@@ -1,4 +1,4 @@
-import http from '@/http'
+import { supabase } from '@/supabaseClient'
 
 const MAX_LIMIT = 1000
 
@@ -31,23 +31,64 @@ function removeGreekVariants (str) {
 
 export default {
   /**
-   * Envoie une requête à partir d'une URI.
+   * Requête à partir d'une URI.
    * @param {String}  uri - identifiant unique d'un mot.
-   * @param {Boolean} siblings - retourner les mots adjacents (`uri`, `word`).
-   * @returns Une unique définition et des métadonnées.
+   * @param {Boolean} getSiblings - ajoute les mots adjacents à la réponse (`uri`, `word`).
+   * @returns Une définition et les mots adjacents à la demande.
    */
-  definitionByURI (uri, siblings = true) {
-    let fields = `uri,word,htmlDefinition`
-    let query  = `definition/${uri}?fields=${fields}`
+  async definitionByURI (uri, getSiblings = false) {
+    const { data: definition } = await supabase.from('dictionary')
+      .select('ordered_id,uri,word,html_definition')
+      .eq('uri', uri)
+      .single()
 
-    if (siblings) query += `&siblings`
+    if (!definition) return false
 
-    return http.fetch(query).then(response => { return response })
+    let response = {
+      definition: {
+        uri: definition.uri,
+        word: definition.word,
+        htmlDefinition: definition.html_definition
+      }
+    }
+
+    let previous = {}, next = {}
+
+    if (getSiblings) {
+      const { data: siblings } = await supabase.from('dictionary')
+        .select('ordered_id, uri, word')
+        .in('ordered_id', [(definition.ordered_id - 1), (definition.ordered_id + 1)])
+      
+      if (siblings.length === 1) {
+          if (siblings[0].ordered_id === (definition.ordered_id - 1)) {
+              previous = siblings[0]
+          }
+          if (siblings[0].ordered_id === (definition.ordered_id + 1)) {
+              next = siblings[0]
+          }
+      } else {
+        previous = siblings[0]
+        next = siblings[1]
+      }
+
+      response.siblings = {
+        previous: (previous.ordered_id) ? {
+          uri: previous.uri,
+          word: previous.word   
+        } : undefined,
+        next: (next.ordered_id) ? {
+          uri: next.uri,
+          word: next.word 
+        } : undefined
+      }
+    }
+
+    return response
   },
 
   /**
-   * Envoie une requête comprenant une chaîne de caractères grecs
-   * normalisés et des contraintes pour la recherche.
+   * Requête à partir d'une chaîne de caractères grecs normalisés
+   * (-> `searchable`, `searchable_case_insensitive`).
    * @param {String} searchValue
    * @param {Number} limit
    * @returns Un jeu de définitions et des métadonnées.
@@ -56,57 +97,80 @@ export default {
     searchValue,
     caseSensitive = false,
     exact = false,
-    limit = MAX_LIMIT,
-    offset
+    limit = MAX_LIMIT
   ) {
     if (limit > MAX_LIMIT) return false
 
-    if (!caseSensitive) searchValue = searchValue.toLowerCase()
     searchValue = removeGreekVariants(searchValue)
-
     if (!isSearchValueAcceptable(searchValue)) return false
 
     let fields = 'uri,word,excerpt'
-
     if (exact || caseSensitive) fields += ',searchable'
-    else fields += ',searchableCaseInsensitive'
+    else fields += ',searchable_case_insensitive'
 
-    let query = `definitions/${searchValue}?fields=${fields}`
-    query += `&limit=${limit}`
+    let query = supabase.from('dictionary').select(fields)
 
-    if (caseSensitive) query += `&caseSensitive`
-    if (exact) query += `&exact`
-    if (offset) query += `&offset=${offset}`
-
-    return await http.fetch(query)
-      .then(response => {
-        const definitions = response.definitions
-
-        const words = {
-          definitions: [],
-          count: response.count,
-          countAll: response.countAll
+    if (exact) {
+      if (caseSensitive) {
+        query = query.eq('searchable', searchValue)
+      } else {
+        query = query.eq('searchable_case_insensitive', searchValue.toLowerCase())
+      }
+    } else { // !exact
+        if (caseSensitive) {
+          query = query.like('searchable', `${searchValue}%`)
+        } else {
+          query = query.like('searchable_case_insensitive', `${searchValue.toLowerCase()}%`)
         }
+    }
 
-        for (const row in definitions) {
-          words.definitions[row] = {}
+    query = query.order('ordered_id')
 
-          words.definitions[row].uri = definitions[row].uri
-          words.definitions[row].word = definitions[row].word
-          words.definitions[row].excerpt = definitions[row].excerpt
+    if (limit) query = query.limit(limit)
 
+    const { data: definitions } = await query
+
+    let countAll = undefined
+
+    if (exact || limit) {
+      // Seconde requête pour obtenir l'ensemble des résultats (`countAll`)
+      // par ressemblance du début de la chaîne recherchée dans le cas où
+      // les paramètres de recherches filtrent les résultats. N.B. la contrainte
+      // `caseSensitive` n'est pas prise en compte.
+      let countQuery = supabase.from('dictionary').select('*', { count: 'exact', head: true })
+
+      if (caseSensitive) {
+          countQuery = countQuery.like('searchable', `${searchValue}%`)
+      } else {
+          countQuery = countQuery.like('searchable_case_insensitive', `${searchValue.toLowerCase()}%`)
+
+      }
+
+      const { count } = await countQuery
+      countAll = count
+    }
+
+    return {
+      definitions: definitions.map(definition => ({
+        uri: definition.uri,
+        word: definition.word,
+        excerpt: definition.excerpt,
+        isExact: function () {
           if (exact || caseSensitive) {
-            if (definitions[row].searchable === searchValue) {
-              words.definitions[row].isExact = true
+            if (definition.searchable === searchValue) {
+              return true
             }
           } else {
-            if (definitions[row].searchableCaseInsensitive === searchValue) {
-              words.definitions[row].isExact = true
+            if (definition.searchable_case_insensitive === searchValue) {
+              return true
             }
           }
-        }
 
-        return words
-      })
+          return false
+        }()
+      })),
+      count: definitions.length,
+      countAll: countAll
+    }
   }
 }

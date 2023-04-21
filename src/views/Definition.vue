@@ -86,7 +86,9 @@ export default {
       this.errorMessage = undefined
 
       let word = this.lastWords(uri)
-      if (!word) word = await api.definitionByURI(uri).catch((error) => this.errorMessage = error)
+      if (!word) word = await api.definitionByURI(uri, true).catch((error) => this.errorMessage = error)
+      
+      if (!word.definition) this.$router.replace('/')
 
       this.current = word.definition
       this.previous = word.siblings.previous || {}
