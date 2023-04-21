@@ -24,7 +24,7 @@
 
           <router-link class="navbar-item" :to="{ name: 'about' }">
             <span class="icon">
-              <ion-icon class="ion-ionic" name="information-outline" size="large">
+              <ion-icon class="ion-ionic" name="information-circle-outline" size="large">
                 <span>&#105;</span>
               </ion-icon>
             </span>
