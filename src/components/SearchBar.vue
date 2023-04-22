@@ -17,7 +17,7 @@
         spellcheck="false"
         type="search"
         class="input is-rounded is-shadowless"
-        placeholder="Rerchercher..."
+        placeholder="Rechercher..."
         ref="inputSearch"
         v-model="searchValue"
         @focus="onFocus"
