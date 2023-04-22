@@ -1,5 +1,3 @@
-> Ce dépôt contient uniquement le client de l'application Bailly. Le serveur se trouve dans le dépôt [bailly-server](https://github.com/antoineboquet/bailly-server).
-
 <p align="center">
   <br><br><img width="192" height="192" src="public/img/icons/android-chrome-192x192.png">
 </p>
