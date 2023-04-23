@@ -56,7 +56,7 @@ export default {
 
     if (getSiblings) {
       const { data: siblings } = await supabase.from('dictionary')
-        .select('ordered_id, uri, word')
+        .select('ordered_id,uri,word')
         .in('ordered_id', [(definition.ordered_id - 1), (definition.ordered_id + 1)])
       
       if (siblings.length === 1) {
