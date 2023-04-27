@@ -78,7 +78,7 @@ export default {
     return await http.fetch(query)
       .then(response => {        
         return {
-          definitions: response.definitions.map(definition => ({
+          definitions: response.definitions ? response.definitions.map(definition => ({
             uri: definition.uri,
             word: definition.word,
             excerpt: definition.excerpt,
@@ -95,7 +95,7 @@ export default {
     
               return false
             }()
-          })),
+          })) : [],
           count: response.count,
           countAll: response.countAll
         }
