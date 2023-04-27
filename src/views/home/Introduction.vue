@@ -107,7 +107,7 @@ export default {
     const result = await api.definitionByURI(randomExample.uri).catch((error) => {}) /* eslint-disable-line */
 
     if (result) {
-      let data = result.definition
+      let data = result
       data.emoji = randomExample.emoji
 
       this.$store.commit('setHomeExample', data)

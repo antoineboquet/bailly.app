@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import api from '@/api'
+import { HttpError } from '@/http'
 import { getIndexedDB } from '@/indexedDB'
 import { inputMode, displayMode } from '@/enums'
 
@@ -364,6 +365,7 @@ export default new Vuex.Store({
       }
       catch (error) {
         state.isFetching = false
+        throw new HttpError(error)
       }
     }
   }

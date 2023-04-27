@@ -1,4 +1,4 @@
-import { supabase } from '@/supabaseClient'
+import http from '@/http'
 
 const MAX_LIMIT = 1000
 
@@ -37,53 +37,13 @@ export default {
    * @returns Une définition et les mots adjacents à la demande.
    */
   async definitionByURI (uri, getSiblings = false) {
-    const { data: definition } = await supabase.from('dictionary')
-      .select('ordered_id,uri,word,html_definition')
-      .eq('uri', uri)
-      .single()
+    let fields = `uri,word,htmlDefinition`
 
-    if (!definition) return false
+    let query  = `definition/${uri}?fields=${fields}`
+    if (getSiblings) query += `&siblings`
 
-    let response = {
-      definition: {
-        uri: definition.uri,
-        word: definition.word,
-        htmlDefinition: definition.html_definition
-      }
-    }
-
-    let previous = {}, next = {}
-
-    if (getSiblings) {
-      const { data: siblings } = await supabase.from('dictionary')
-        .select('ordered_id,uri,word')
-        .in('ordered_id', [(definition.ordered_id - 1), (definition.ordered_id + 1)])
-      
-      if (siblings.length === 1) {
-          if (siblings[0].ordered_id === (definition.ordered_id - 1)) {
-              previous = siblings[0]
-          }
-          if (siblings[0].ordered_id === (definition.ordered_id + 1)) {
-              next = siblings[0]
-          }
-      } else {
-        previous = siblings[0]
-        next = siblings[1]
-      }
-
-      response.siblings = {
-        previous: (previous.ordered_id) ? {
-          uri: previous.uri,
-          word: previous.word   
-        } : undefined,
-        next: (next.ordered_id) ? {
-          uri: next.uri,
-          word: next.word 
-        } : undefined
-      }
-    }
-
-    return response
+    // { definition: {}, siblings: { previous: {}, next: {} }
+    return http.fetch(query).then(response => { return response })
   },
 
   /**
@@ -101,76 +61,44 @@ export default {
   ) {
     if (limit > MAX_LIMIT) return false
 
+    if (!caseSensitive) searchValue = searchValue.toLowerCase()
     searchValue = removeGreekVariants(searchValue)
+    
     if (!isSearchValueAcceptable(searchValue)) return false
 
     let fields = 'uri,word,excerpt'
     if (exact || caseSensitive) fields += ',searchable'
-    else fields += ',searchable_case_insensitive'
+    else fields += ',searchableCaseInsensitive'
 
-    let query = supabase.from('dictionary').select(fields)
+    let query = `definitions/${searchValue}?fields=${fields}&limit=${limit}`
 
-    if (exact) {
-      if (caseSensitive) {
-        query = query.eq('searchable', searchValue)
-      } else {
-        query = query.eq('searchable_case_insensitive', searchValue.toLowerCase())
-      }
-    } else { // !exact
-        if (caseSensitive) {
-          query = query.like('searchable', `${searchValue}%`)
-        } else {
-          query = query.like('searchable_case_insensitive', `${searchValue.toLowerCase()}%`)
+    if (caseSensitive) query += `&caseSensitive`
+    if (exact) query += `&exact`
+    
+    return await http.fetch(query)
+      .then(response => {        
+        return {
+          definitions: response.definitions.map(definition => ({
+            uri: definition.uri,
+            word: definition.word,
+            excerpt: definition.excerpt,
+            isExact: function () {
+              if (exact || caseSensitive) {
+                if (definition.searchable === searchValue) {
+                  return true
+                }
+              } else {
+                if (definition.searchableCaseInsensitive === searchValue) {
+                  return true
+                }
+              }
+    
+              return false
+            }()
+          })),
+          count: response.count,
+          countAll: response.countAll
         }
-    }
-
-    query = query.order('ordered_id')
-
-    if (limit) query = query.limit(limit)
-
-    const { data: definitions } = await query
-
-    let countAll = undefined
-
-    if (exact || limit) {
-      // Seconde requête pour obtenir l'ensemble des résultats (`countAll`)
-      // par ressemblance du début de la chaîne recherchée dans le cas où
-      // les paramètres de recherches filtrent les résultats. N.B. la contrainte
-      // `caseSensitive` n'est pas prise en compte.
-      let countQuery = supabase.from('dictionary').select('*', { count: 'exact', head: true })
-
-      if (caseSensitive) {
-          countQuery = countQuery.like('searchable', `${searchValue}%`)
-      } else {
-          countQuery = countQuery.like('searchable_case_insensitive', `${searchValue.toLowerCase()}%`)
-
-      }
-
-      const { count } = await countQuery
-      countAll = count
-    }
-
-    return {
-      definitions: definitions.map(definition => ({
-        uri: definition.uri,
-        word: definition.word,
-        excerpt: definition.excerpt,
-        isExact: function () {
-          if (exact || caseSensitive) {
-            if (definition.searchable === searchValue) {
-              return true
-            }
-          } else {
-            if (definition.searchable_case_insensitive === searchValue) {
-              return true
-            }
-          }
-
-          return false
-        }()
-      })),
-      count: definitions.length,
-      countAll: countAll
-    }
+      })
   }
 }
