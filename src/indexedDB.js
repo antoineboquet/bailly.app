@@ -1,5 +1,5 @@
 const INDEXED_DB_NAME = 'bailly'
-const INDEXED_DB_VERSION = '1'
+const INDEXED_DB_VERSION = '2'
 
 export async function getIndexedDB () {
 	return new Promise((resolve, reject) => {
@@ -15,6 +15,11 @@ export async function getIndexedDB () {
 
     connection.onupgradeneeded = function (event) {
       const db = event.currentTarget.result
+
+      if (event.oldVersion) {
+        db.deleteObjectStore('dictionarySlices')
+        db.deleteObjectStore('lastWords')
+      }
 
       db.createObjectStore('dictionarySlices', { keyPath: 'id', unique: true })
 

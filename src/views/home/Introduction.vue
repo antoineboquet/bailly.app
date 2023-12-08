@@ -10,14 +10,15 @@
             :class="{ 'is-offset-3-widescreen has-text-centered': (!isExampleLoading && !example) }"
           >
             <!-- Tablette/ordinateur uniquement -->
-            <p class="title mb-2 is-size-3-widescreen is-size-4-tablet is-hidden-mobile">Consultez le dictionnaire<br><mark>grec&ndash;français</mark> d'Anatole Bailly<br></p>
-            <p class="title is-size-5-tablet is-hidden-mobile">Dans l'édition Bailly 2020 Hugo Chávez (<router-link :to="{ name: 'about' }">à&nbsp;propos</router-link>).</p>
+            <p class="title mb-2 has-text-black is-size-3-widescreen is-size-4-tablet is-hidden-mobile">Consultez le dictionnaire<br><span class="gradient">grec&ndash;français</span> d'Anatole Bailly<br></p>
+            <p class="is-size-4-widescreen is-size-5-tablet is-hidden-mobile">Dans l'édition Bailly 2020 Hugo Chávez (<router-link :to="{ name: 'about' }">à&nbsp;propos</router-link>).</p>
 
             <!-- Mobile uniquement -->
-            <p class="title mb-2 is-size-5-mobile is-hidden-tablet">Consultez le dictionnaire <mark>grec&ndash;français</mark> d'Anatole Bailly dans l'édition Bailly 2020 Hugo Chávez (<router-link :to="{ name: 'about' }">à&nbsp;propos</router-link>).
+            <p class="mb-2 is-size-5-mobile is-hidden-tablet">Consultez le dictionnaire <strong><span class="gradient">grec&ndash;français</span></strong> d'Anatole Bailly dans l'édition Bailly 2020 Hugo Chávez (<router-link :to="{ name: 'about' }">à&nbsp;propos</router-link>).
             </p>
 
-            <p v-html="hint" class="subtitle is-size-4-tablet is-size-5-mobile mt-5"></p>
+            <!-- Tablette/ordinateur uniquement -->
+            <p v-html="hint" class="subtitle is-size-5-tablet mt-5 is-hidden-touch is-hidden-desktop-only"></p>
           </div>
 
           <div
@@ -107,10 +108,10 @@ export default {
     const result = await api.definitionByURI(randomExample.uri).catch((error) => {}) /* eslint-disable-line */
 
     if (result) {
-      let data = result
-      data.emoji = randomExample.emoji
+      let definition = result.definition
+      definition.emoji = randomExample.emoji
 
-      this.$store.commit('setHomeExample', data)
+      this.$store.commit('setHomeExample', definition)
     }
 
     this.isExampleLoading = false
@@ -138,6 +139,20 @@ export default {
 
 .title, .subtitle {
   line-height: 150%;
+}
+
+.gradient {
+  background: #C1601F;
+  background: linear-gradient(to right, #C1601F 0%, #CF1512 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.icon {
+  vertical-align: middle;
+  margin-top: -0.4rem;
+  margin-left: -0.25rem;
+  margin-right: 0.25rem;
 }
 
 .emoji-container {

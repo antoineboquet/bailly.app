@@ -29,7 +29,7 @@
                 <h3 class="title">Mentions</h3>
 
                 <p class="mb-3">
-                  <mark>Application «&nbsp;Bailly&nbsp;»</mark> Antoine Boquet &amp;
+                  <strong><span class="gradient">Application «&nbsp;Bailly&nbsp;»</span></strong> Antoine Boquet &amp;
                   Benjamin Georges / Licence <em>GNU Affero General Public License</em>
                   &mdash; «&nbsp;AGPL-3.0-or-later&nbsp;»
                   (<a href="COPYING" target="_blank" rel="noopener">texte&nbsp;intégral</a>)
@@ -37,7 +37,7 @@
                 </p>
 
                 <p>
-                  <mark>Bailly 2020 Hugo Chávez</mark> Gérard Gréco,
+                  <strong><span class="gradient">Bailly 2020 Hugo Chávez</span></strong> Gérard Gréco,
                   André Charbonnet, Mark De Wilde, Bernard Maréchal &amp;
                   <a v-if="!toggleContributors" @click="toggleContributors = !toggleContributors">contributeurs</a>
                   <span v-if="toggleContributors">contributeurs ({{ contributors.join(', ') }}
@@ -45,7 +45,8 @@
                   / Licence <em>Creative Commons Attribution - Pas d'Utilisation
                   Commerciale - Pas de Modification</em> &mdash; «&nbsp;CC&nbsp;BY-NC-ND&nbsp;4.0&nbsp;»
                   (<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr" target="_blank" rel="noopener">résumé</a>&nbsp;|&nbsp;<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.fr" target="_blank" rel="noopener">texte&nbsp;intégral</a>)
-                  / Consulter la <a href="http://gerardgreco.free.fr/spip.php?article52" target="_blank" rel="noopener">source</a>.
+                  / Consulter la <a href="http://gerardgreco.free.fr/spip.php?article52" target="_blank" rel="noopener">source</a>
+                  / Version des données&nbsp;: <span class="is-family-monospace">28/02/2023</span>.
                 </p>
               </div>
 
@@ -169,6 +170,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.gradient {
+  background: #C1601F;
+  background: linear-gradient(to right, #C1601F 0%, #CF1512 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 @media only screen and (min-width: $desktop) {
   .card {
     margin-bottom: $gap;

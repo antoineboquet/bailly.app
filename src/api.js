@@ -43,7 +43,13 @@ export default {
     if (getSiblings) query += `&siblings`
 
     // { definition: {}, siblings: { previous: {}, next: {} }
-    return http.fetch(query).then(response => { return response })
+    return http.fetch(query).then(response => { 
+      const data = response.data
+      return {
+        definition: data.definition,
+        siblings: data.siblings
+      }
+    })
   },
 
   /**
@@ -76,9 +82,11 @@ export default {
     if (exact) query += `&exact`
     
     return await http.fetch(query)
-      .then(response => {        
+      .then(response => {    
+        const data = response.data
+
         return {
-          definitions: response.definitions ? response.definitions.map(definition => ({
+          definitions: data.definitions ? data.definitions.map(definition => ({
             uri: definition.uri,
             word: definition.word,
             excerpt: definition.excerpt,
@@ -96,8 +104,8 @@ export default {
               return false
             }()
           })) : [],
-          count: response.count,
-          countAll: response.countAll
+          count: data.count,
+          countAll: data.countAll
         }
       })
   }
