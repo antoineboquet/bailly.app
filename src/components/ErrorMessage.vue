@@ -50,7 +50,7 @@ export default {
       }
     } else {
       this.displayedMessage = titleTag + 'La connexion a été perdue.' + closeTag +
-                              subtitleTag + 'Vos recherches précédentes restent consultables hors-ligne.' + closeTag
+                              subtitleTag + 'Vos recherches précédentes restent consultables hors ligne.' + closeTag
     }
   }
 }
