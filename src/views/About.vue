@@ -47,7 +47,7 @@
                   (<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr" target="_blank" rel="noopener">résumé</a>&nbsp;|&nbsp;<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.fr" target="_blank" rel="noopener">texte&nbsp;intégral</a>)
                   / Consulter la <a href="http://gerardgreco.free.fr/spip.php?article52" target="_blank" rel="noopener">source</a>.
                 </p>
-                <pre class="mt-5 px-3 py-2">Version des données&nbsp;: 28/02/2023</pre>
+                <pre class="mt-5 px-3 py-2">Version des données&nbsp;: 28/02/23</pre>
               </div>
 
               <footer class="card-footer">
