@@ -14,7 +14,7 @@
             <p class="is-size-4-widescreen is-size-5-tablet is-hidden-mobile">Dans l'édition Bailly 2020 Hugo Chávez (<router-link :to="{ name: 'about' }">à&nbsp;propos</router-link>).</p>
 
             <!-- Mobile uniquement -->
-            <p class="mb-2 is-size-5-mobile is-hidden-tablet">Consultez le dictionnaire <strong><span class="gradient">grec&ndash;français</span></strong> d'Anatole Bailly dans l'édition Bailly 2020 Hugo Chávez (<router-link :to="{ name: 'about' }">à&nbsp;propos</router-link>).
+            <p class="mt-5 is-size-5-mobile is-hidden-tablet">Consultez le dictionnaire <strong><span class="gradient">grec&ndash;français</span></strong> d'Anatole Bailly dans l'édition Bailly 2020 Hugo Chávez (<router-link :to="{ name: 'about' }">à&nbsp;propos</router-link>).
             </p>
 
             <!-- Tablette/ordinateur uniquement -->

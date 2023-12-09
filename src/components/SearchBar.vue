@@ -1,8 +1,8 @@
 <template>
   <div id="search-bar" class="is-flex-mobile">
     <button v-if="(this.$route.name === 'definition' && this.searchValue && resultsCounter > 1)" @click="goToSearchResults" class="button back-to-search is-hidden-tablet mr-2">
-      <span class="icon is-large has-text-white">
-        <ion-icon class="ion-ionic" name="arrow-back-outline">
+      <span class="icon is-large has-text-dark">
+        <ion-icon class="ion-ionic" name="arrow-back-outline" size="large">
           <span >&larr;</span>
         </ion-icon>
       </span>
@@ -240,7 +240,6 @@ export default {
   .back-to-search {
     width: 2.4em;
     height: 2.4em;
-    background: $grey-dark;
     border: 0;
     border-radius: 9999px;
   }
