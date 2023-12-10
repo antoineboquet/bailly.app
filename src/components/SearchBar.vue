@@ -240,6 +240,7 @@ export default {
   .back-to-search {
     width: 2.4em;
     height: 2.4em;
+    background: transparent;
     border: 0;
     border-radius: 9999px;
   }
