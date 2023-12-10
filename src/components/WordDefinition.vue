@@ -52,11 +52,4 @@ export default {
 .entry {
   font-weight: 700;
 }
-
-.gradient {
-  background: #C1601F;
-  background: linear-gradient(to right, #C1601F 0%, #CF1512 100%);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-</style>-->
+</style>

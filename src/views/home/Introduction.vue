@@ -141,13 +141,6 @@ export default {
   line-height: 150%;
 }
 
-.gradient {
-  background: #C1601F;
-  background: linear-gradient(to right, #C1601F 0%, #CF1512 100%);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 .icon {
   vertical-align: middle;
   margin-top: -0.4rem;
