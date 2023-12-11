@@ -44,7 +44,7 @@ export default {
 
     // { definition: {}, siblings: { previous: {}, next: {} }
     return http.fetch(query).then(response => { 
-      const data = response.data
+      const data = response.data || {}
       return {
         definition: data.definition,
         siblings: data.siblings
@@ -83,7 +83,7 @@ export default {
     
     return await http.fetch(query)
       .then(response => {    
-        const data = response.data
+        const data = response.data || {}
 
         return {
           definitions: data.definitions ? data.definitions.map(definition => ({
