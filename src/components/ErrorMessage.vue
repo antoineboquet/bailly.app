@@ -42,10 +42,9 @@ export default {
                                   subtitleTag + 'Veuillez réessayer plus tard.' + closeTag
           break
 
+        case 404:
         default:
-          this.displayedMessage = titleTag + 'Les données n\'ont pas pu être récupérées.' + closeTag +
-                                  subtitleTag + '(' + this.message.status + ' ' +
-                                  this.message.statusText + ')' + closeTag
+          this.displayedMessage = titleTag + 'Aucun résultat' + closeTag
           break
       }
     } else {
