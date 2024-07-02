@@ -47,11 +47,28 @@
                   (<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr" target="_blank" rel="noopener">résumé</a>&nbsp;|&nbsp;<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.fr" target="_blank" rel="noopener">texte&nbsp;intégral</a>)
                   / Consulter la <a href="http://gerardgreco.free.fr/spip.php?article52" target="_blank" rel="noopener">source</a>.
                 </p>
-                <pre class="mt-5 px-3 py-2">Version des données&nbsp;: 28/02/23</pre>
+                <pre class="mt-5 px-3 py-2">Version des données&nbsp;: 28 février 2023</pre>
               </div>
 
-              <footer class="card-footer">
-                <span v-if="showAddress" class="card-footer-item has-text-weight-bold">{{ emailAddress }}</span>
+              <footer class="card-footer" style="flex-direction: column;">
+                <a
+                  href="https://www.paypal.com/donate/?hosted_button_id=HFBZZVKRBE7HY"
+                  target="_blank"
+                  rel="noopener"
+                  class="card-footer-item has-text-weight-bold"
+                  style="border: 0; border-bottom: 1px solid #ededed;"
+                >
+                  <span class="icon mr-2">
+                    <ion-icon class="ion-ionic" name="heart-outline" size="large">
+                      <span>&#10084;</span>
+                    </ion-icon>
+                  </span>
+                  <span>Faire un don</span>
+                </a>
+
+                <span v-if="showAddress" class="card-footer-item">
+                  {{ emailAddress }}
+                </span>
 
                 <a
                   v-else
@@ -64,7 +81,7 @@
                       <span>&#128231;</span>
                     </ion-icon>
                   </span>
-                  <span>Contact</span>
+                  <span>Nous contacter</span>
                 </a>
               </footer>
             </div>
