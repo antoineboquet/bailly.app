@@ -52,7 +52,7 @@
 
               <footer class="card-footer" style="flex-direction: column;">
                 <a
-                  href="https://www.paypal.com/donate/?hosted_button_id=HFBZZVKRBE7HY"
+                  href="https://www.paypal.com/donate/?hosted_button_id=HFBZZVKRBE7HY&amp;locale.x=fr_FR"
                   target="_blank"
                   rel="noopener"
                   class="card-footer-item has-text-weight-bold"
