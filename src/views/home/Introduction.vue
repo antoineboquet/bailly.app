@@ -27,6 +27,9 @@
             class="column example"
             :class="{ 'grow': animateExample }"
           >
+            <div class="emoji-container">
+              <Icon :icon="example.emoji" style="width: 100%;" />
+            </div>
             <word-definition class="box is-size-5-mobile is-size-4" v-bind="example"></word-definition>
           </div>
         </div>
@@ -38,6 +41,7 @@
 <script>
 import api from '@/api'
 import { mapState } from 'vuex'
+import { Icon } from '@iconify/vue2'
 import HistoryButton from '@/components/HistoryButton.vue'
 import WordDefinition from '@/components/WordDefinition.vue'
 
@@ -45,6 +49,7 @@ export default {
   name: 'HomeIntroduction',
 
   components: {
+    Icon,
     HistoryButton,
     WordDefinition
   },
@@ -52,23 +57,23 @@ export default {
   data () {
     return {
       examples: [
-        { uri: 'krios' },
-        { uri: 'aix' },
-        { uri: 'alôpêx' },
-        { uri: 'rhinokerôs' },
-        { uri: 'ichthus' },
-        { euri: 'geôrgos' },
-        { uri: 'Sôkratês' },
-        { uri: 'Diogenês' },
-        { uri: 'kathedra' },
-        { uri: 'tumpanon' },
-        { uri: 'xiphos' },
-        { uri: 'ankistron' },
-        { uri: 'parthenôn' },
-        { uri: 'theatron' },
-        { uri: 'têleskopos' },
-        { uri: 'nêsos' },
-        { uri: 'astêr' }
+        { emoji: this.getTwemoji('ewe'), uri: 'krios' },
+        { emoji: this.getTwemoji('goat'), uri: 'aix' },
+        { emoji: this.getTwemoji('fox'), uri: 'alôpêx' },
+        { emoji: this.getTwemoji('rhinoceros'), uri: 'rhinokerôs' },
+        { emoji: this.getTwemoji('fish'), uri: 'ichthus' },
+        { emoji: this.getTwemoji('farmer'), uri: 'geôrgos' },
+        { emoji: this.getTwemoji('old-man-light-skin-tone'), uri: 'Sôkratês' },
+        { emoji: this.getTwemoji('old-man-medium-skin-tone'), uri: 'Diogenês' },
+        { emoji: this.getTwemoji('chair'), uri: 'kathedra' },
+        { emoji: this.getTwemoji('drum'), uri: 'tumpanon' },
+        { emoji: this.getTwemoji('dagger'), uri: 'xiphos' },
+        { emoji: this.getTwemoji('hook'), uri: 'ankistron' },
+        { emoji: this.getTwemoji('classical-building'), uri: 'parthenôn' },
+        { emoji: this.getTwemoji('performing-arts'), uri: 'theatron' },
+        { emoji: this.getTwemoji('telescope'), uri: 'têleskopos' },
+        { emoji: this.getTwemoji('desert-island'), uri: 'nêsos' },
+        { emoji: this.getTwemoji('glowing-star'), uri: 'astêr' }
       ],
 
       hints: [
@@ -83,7 +88,7 @@ export default {
   },
 
   computed: {
-    ...mapState({
+    ...mapState({ 
       animateExample: state => state.home.animateExample,
       example: state => state.home.example
     }),
@@ -107,6 +112,7 @@ export default {
 
     if (result) {
       let definition = result.definition
+      definition.emoji = randomExample.emoji
       this.$store.commit('setHomeExample', definition)
     }
 
@@ -114,6 +120,10 @@ export default {
   },
 
   methods: {
+    getTwemoji (emoji) {
+      return 'twemoji:' + emoji
+    },
+
     removeExampleAnimation () {
       this.$store.commit('unsetHomeExampleAnimation')
     }
@@ -137,6 +147,17 @@ export default {
   margin-right: 0.25rem;
 }
 
+.emoji-container {
+  user-select: none;
+  margin: auto;
+  height: 96px;
+  width: 96px;
+  background-image: radial-gradient(circle at bottom left, rgb(255, 255, 255) 33%, rgba(255, 255, 255, 0) 100%);
+  border: 5px solid $white;
+  border-radius: 50%;
+  font-size: 96px;
+}
+
 @media only screen and (max-width: $widescreen) {
   .intro {
     padding-bottom: 0;
@@ -146,12 +167,32 @@ export default {
     padding-top: 0;
   }
 
+  .emoji-container {
+    position: relative;
+    top: 48px;
+    line-height: 96px;
+    background-color: $white;
+    box-shadow: 0 0px 0 1px rgba($scheme-invert, 0.1);
+  }
+
   .word-definition {
     padding-top: 5rem;
   }
 }
 
 @media only screen and (min-width: $widescreen) {
+  .emoji-container {
+    height: 128px;
+    width: 128px;
+    float: right;
+    margin-top: -48px;
+    margin-right: -48px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0.25em 0.25em 0.5em -0.125em rgba($scheme-invert, 0.25),
+                0 0px 0 1px rgba($scheme-invert, 0.1);
+  }
+
   .grow {
     animation: grow 1s;
   }
