@@ -1,0 +1,169 @@
+---
+import SingleColumn from "../layouts/SingleColumn.astro";
+---
+
+<SingleColumn
+  title="Nouveautés"
+  description="Après trois années et demie d'existence, l'application Bailly s'enrichit de nouvelles fonctionnalités."
+>
+  <article
+    class="space-y-3 rounded-lg border border-secondary-100 bg-white p-3 font-serif text-xl shadow-xl md:my-3 md:p-6 lg:space-y-6 dark:border-neutral-700/50 dark:bg-neutral-800 dark:shadow-neutral-950"
+  >
+    <header>
+      <h1 class="text-2xl font-semibold">
+        L'application Bailly fait peau neuve&nbsp;!
+      </h1>
+    </header>
+
+    <section class="space-y-3 text-xl lg:space-y-6">
+      <p>
+        Après trois années et demie d'existence, l'application Bailly s'enrichit
+        de nouvelles fonctionnalités que nous vous invitons à découvrir&nbsp;:
+      </p>
+
+      <ul class="space-y-3">
+        <li class="sm:flex">
+          <span class="sm:mr-1.5">✨</span>
+          <span>
+            <span class="font-semibold sm:block">
+              Trouvez les lemmes à partir des formes fléchies.
+            </span>
+            Jusqu'à présent, il était nécessaire d'entrer la forme canonique du mot
+            recherché. Désormais, les formes fléchies sont reconnues dans la plupart
+            des cas, de sorte que, par exemple, l'entrée
+            <span class="grec">«&nbsp;ὦμεν&nbsp;»</span> produit dorénavant les réponses
+            <span class="grec">«&nbsp;εἰμί&nbsp;»</span>,
+            <span class="grec">«&nbsp;εἶμι&nbsp;»</span>.
+          </span>
+        </li>
+        <li class="sm:flex">
+          <span class="sm:mr-1.5">🃏</span>
+          <span>
+            <span class="font-semibold sm:block">
+              Affinez vos recherches avec les caractères spéciaux.
+            </span>
+            Les caractères jokers «&nbsp;<strong>?</strong>&nbsp;» et <strong
+              >«&nbsp;*</strong
+            >&nbsp;» ainsi que les bornes «&nbsp;<strong>^</strong>&nbsp;» et
+            «&nbsp;<strong>$</strong>&nbsp;» ont été introduits. Utilisez-les
+            dans vos recherches lorsque vous souhaitez représenter,
+            respectivement&nbsp;:
+            <ul class="ml-5 list-outside list-disc">
+              <li>
+                un caractère indéterminé («&nbsp;<strong>?</strong
+                >&nbsp;»&nbsp;; <span class="grec"
+                  >«&nbsp;οργ<span class="font-semibold underline">?</span
+                  >ζω&nbsp;»</span
+                > &rarr; <span class="grec"
+                  >«&nbsp;ὀργ<span class="font-semibold underline">ά</span
+                  >ζω&nbsp;»</span
+                >, <span class="grec"
+                  >«&nbsp;ὀργ<span class="font-semibold underline">ί</span
+                  >ζω&nbsp;»</span
+                >)&nbsp;;
+              </li>
+              <li>
+                zéro, un ou plusieurs caractères indéterminés («&nbsp;<strong
+                  >*</strong
+                >&nbsp;»&nbsp;; <span class="grec"
+                  >«&nbsp;αναλογ<span class="font-semibold underline">*</span
+                  >ος&nbsp;»</span
+                > &rarr;
+                <span class="grec">«&nbsp;ἀνάλογος&nbsp;»</span>, <span
+                  class="grec"
+                  >«&nbsp;ἀναλογ<span class="font-semibold underline">ικ</span
+                  >ός&nbsp;»</span
+                >, <span class="grec"
+                  >«&nbsp;ἀναλογ<span class="font-semibold underline">ισμ</span
+                  >ός&nbsp;»</span
+                >, etc)&nbsp;;
+              </li>
+              <li>
+                une correspondance à partir de la fin du terme recherché
+                («&nbsp;<strong>$</strong>&nbsp;»&nbsp;; <span class="grec"
+                  >«&nbsp;ταμος<span class="font-semibold underline">$</span
+                  >&nbsp;»</span
+                >
+                &rarr;
+                <span class="grec"
+                  >«&nbsp;<span class="font-semibold underline">ἄρ</span
+                  >ταμος&nbsp;»</span
+                >, <span class="grec"
+                  >«&nbsp;<span class="font-semibold underline">πο</span
+                  >ταμός&nbsp;»</span
+                >, <span class="grec"
+                  >«&nbsp;<span class="font-semibold underline">ἱπποπό</span
+                  >ταμος&nbsp;»</span
+                >, etc)&nbsp;;
+              </li>
+              <li>
+                une correspondance exacte («&nbsp;<strong>^</strong>&nbsp;» en
+                conjonction avec «&nbsp;<strong>$</strong>&nbsp;»&nbsp;; <span
+                  class="grec"
+                  >«&nbsp;<span class="font-semibold underline">^</span
+                  >ιερος<span class="font-semibold underline">$</span
+                  >&nbsp;»</span
+                > &rarr; <span class="grec"
+                  >«&nbsp;<span class="font-semibold underline">ἱερός</span
+                  >&nbsp;»</span
+                >).
+              </li>
+            </ul>
+          </span>
+        </li>
+        <li class="sm:flex">
+          <span class="sm:mr-1.5">🔖</span>
+          <span>
+            <span class="font-semibold sm:block">
+              Organisez vos recherches à l'aide des signets.
+            </span>
+            Il est maintenant possible d'ajouter les entrées consultées à la nouvelle
+            liste des favoris ou bien de les assigner à une étiquette personnalisée.
+            La nouvelle page des «&nbsp;signets&nbsp;» permet à la fois de consulter
+            les entrées marquées de la sorte et de gérer les étiquettes.
+          </span>
+        </li>
+        <li class="sm:flex">
+          <span class="sm:mr-1.5">🌌</span>
+          <span>
+            <span class="font-semibold sm:block">
+              Appréciez le nouveau thème sombre.
+            </span>
+            Un thème sombre a été introduit pour une consultation plus agréable,
+            notamment dans les environnements peu lumineux. Celui-ci s'activera automatiquement
+            en fonction des préférences d'affichage de votre appareil et peut être
+            activé manuellement <em>via</em> la page des «&nbsp;paramètres&nbsp;».
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    <footer>
+      <p class="text-neutral-700 dark:text-neutral-300">
+        &mdash; Antoine Boquet, le 10 octobre 2024.
+      </p>
+    </footer>
+
+    <aside
+      class="rounded-lg bg-secondary-50 p-3 text-lg font-semibold leading-tight text-secondary-900 dark:bg-neutral-900 dark:text-secondary-400"
+    >
+      <p>
+        Si vous souhaitez nous faire part de votre avis ou nous contacter pour
+        toute autre raison, vous pouvez nous joindre par
+        <a data-contact href="" class="dark:!decoration-primary-700">courriel</a
+        >.
+      </p>
+    </aside>
+  </article>
+</SingleColumn>
+
+<script>
+  import { setEmailAddress } from "../helpers";
+  setEmailAddress();
+</script>
+
+<style>
+  .grec {
+    @apply text-neutral-700 dark:text-neutral-300;
+  }
+</style>

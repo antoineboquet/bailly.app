@@ -1,0 +1,12 @@
+---
+import Bookmarks from "../components/Bookmarks";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Signets"
+  description="Retrouvez les entrées que vous avez marquées comme favorites ou étiquetées."
+  noindex
+>
+  <Bookmarks client:only="solid-js" />
+</BaseLayout>

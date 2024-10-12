@@ -1,0 +1,62 @@
+---
+/*
+ * This is for compatibility with gaffiot.fr references.
+ */
+
+import { fetchEntries, type ApiLookupResponse } from "../api";
+import SingleColumn from "../layouts/SingleColumn.astro";
+
+export const prerender = false;
+
+const { greekStr } = Astro.params;
+
+let data: ApiLookupResponse<"word" | "uri" | "excerpt"> = {
+  version: "",
+  count: 0,
+  countAll: 0,
+  lemmata: {},
+  entries: []
+};
+
+if (greekStr) data = await fetchEntries(greekStr);
+
+/*
+ * Replace the Greek Beta Symbol with the regular letter as some browsers
+ * may not display it accurately.
+ */
+const title = greekStr?.replace(/\u03D0/g, "β") ?? "";
+---
+
+<SingleColumn title={title} description="" noindex>
+  <entry-article
+    class="space-y-3 py-6 text-xl md:py-12 lg:space-y-6"
+    role="article"
+  >
+    <header>
+      <h1 class="text-2xl font-bold leading-loose lg:text-3xl">
+        {
+          data.entries.length ? (
+            <>Résultats pour «&nbsp;{greekStr}&nbsp;»</>
+          ) : (
+            <>Aucun résultat pour «&nbsp;{greekStr}&nbsp;»</>
+          )
+        }
+      </h1>
+    </header>
+    {
+      data.entries.length ? (
+        <section>
+          <ul>
+            {data.entries.map((entry) => (
+              <li>
+                <a href={entry.uri}>{entry.word}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : (
+        <></>
+      )
+    }
+  </entry-article>
+</SingleColumn>

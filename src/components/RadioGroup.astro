@@ -1,0 +1,119 @@
+---
+import type { LocalStorageKey } from "../enums";
+
+type RadioGroupOptions = {
+  default?: boolean;
+  display: string;
+  value: string | boolean;
+};
+
+type Props = {
+  groupName: string;
+  options: RadioGroupOptions[];
+  storageKey: LocalStorageKey;
+};
+
+const { groupName, options, storageKey } = Astro.props;
+const groupID = `${groupName}-radio-group`;
+---
+
+<radio-group
+  id={groupID}
+  data-group-name={groupName}
+  data-storage-key={storageKey}
+  class="flex divide-x divide-secondary-100 rounded-lg border border-secondary-100 bg-white shadow-sm dark:divide-neutral-700/50 dark:border-neutral-700/50 dark:bg-neutral-800"
+>
+  {
+    options.map((item, i, arr) => (
+      <label
+        class={`flex flex-1 cursor-pointer select-none flex-col items-center gap-1.5 p-3 text-center font-medium transition-[background-color] hover:bg-primary-50 active:z-50 active:outline dark:hover:bg-neutral-700 ${
+          (i === 0 && "rounded-bl-lg rounded-tl-lg") ||
+          (i === arr.length - 1 && "rounded-br-lg rounded-tr-lg")
+        }`}
+      >
+        <span>{item.display}</span>
+        <input
+          class="accent-primary-600 outline-none"
+          data-default={Boolean(item.default)}
+          name={groupName}
+          type="radio"
+          value={String(item.value)}
+        />
+      </label>
+    ))
+  }
+</radio-group>
+
+<script>
+  import { LocalStorageKey } from "../enums";
+  import { setTheme } from "../helpers";
+
+  class RadioGroup extends HTMLElement {
+    constructor() {
+      super();
+
+      const groupID: string = this.id;
+      const groupName: string = this.dataset.groupName ?? "";
+      const storageKey: string = this.dataset.storageKey ?? "";
+
+      if (!groupID || !groupName || !storageKey) {
+        console.error("RadioGroup: some argument is missing.", {
+          groupID,
+          groupName,
+          storageKey
+        });
+        return;
+      }
+
+      document.addEventListener("astro:page-load", () => {
+        const selectedLabelClasses = [
+          "bg-primary-50",
+          "dark:bg-neutral-700/50",
+          "pointer-events-none"
+        ];
+
+        const radioButtons = document.querySelectorAll<HTMLInputElement>(
+          `#${groupID} input[name="${groupName}"]`
+        );
+
+        for (const item of radioButtons) {
+          if (
+            item.value === localStorage.getItem(storageKey) ||
+            (!localStorage.getItem(storageKey) && "default" in item.dataset)
+          ) {
+            item.parentElement?.classList.add(...selectedLabelClasses);
+            item.checked = true;
+            break;
+          }
+        }
+
+        radioButtons.forEach((item) =>
+          item.addEventListener("change", () => onChange())
+        );
+
+        const onChange = () => {
+          const selectedRadio = document.querySelector<HTMLInputElement>(
+            `#${groupID} input[name="${groupName}"]:checked`
+          )?.value;
+
+          for (const item of radioButtons) {
+            if (item.value === selectedRadio) {
+              item.parentElement?.classList.add(...selectedLabelClasses);
+            } else {
+              item.parentElement?.classList.remove(...selectedLabelClasses);
+            }
+          }
+
+          if (selectedRadio) localStorage.setItem(storageKey, selectedRadio);
+          else localStorage.removeItem(storageKey);
+
+          window.dispatchEvent(new Event("storage"));
+
+          if (storageKey === LocalStorageKey.Theme) setTheme();
+        };
+      });
+    }
+  }
+
+  customElements.define("radio-group", RadioGroup);
+</script>

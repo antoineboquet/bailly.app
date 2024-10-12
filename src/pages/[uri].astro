@@ -1,0 +1,116 @@
+---
+import { fetchOneEntry } from "../api";
+import Card from "../components/Card";
+import Icon from "../components/Icon";
+import TagToolbar from "../components/TagToolbar";
+import SingleColumn from "../layouts/SingleColumn.astro";
+
+export const prerender = false;
+
+const { uri } = Astro.params;
+if (!uri) return Astro.redirect("/404");
+
+const data = await fetchOneEntry(uri, {
+  fields: ["word", "uri", "htmlDefinition", "excerpt"],
+  siblings: true
+});
+
+const entry = data.entry;
+const siblings = data.siblings;
+
+if (!Object.keys(entry).length) return Astro.redirect("/404");
+
+/*
+ * Replace the Greek Beta Symbol with the regular letter as some browsers
+ * may not display it accurately.
+ */
+const title = entry.word.replace(/\u03D0/g, "β");
+---
+
+<SingleColumn title={title} description={entry.excerpt ?? ""}>
+  <entry-article
+    class="py-6 text-xl md:py-12"
+    data-entry={JSON.stringify(entry)}
+    role="article"
+  >
+    <header class="mb-3 flex items-center lg:mb-6">
+      {
+        siblings.previous?.uri && (
+          <span class="flex flex-1 items-center">
+            <a href={"/" + siblings.previous.uri}>
+              <span class="lg:hidden">
+                <Icon name="ArrowLeftCircle" />
+              </span>
+              <span class="grec max-lg:hidden">{siblings.previous.word}</span>
+            </a>
+          </span>
+        )
+      }
+      <h1
+        class={`grec shrink-0 text-2xl lg:text-3xl leading-loose font-bold ${
+          !siblings.next?.uri ? "text-right" : "text-center"
+        }`}
+      >
+        {entry.word}
+      </h1>
+      {
+        siblings.next?.uri && (
+          <span class="flex flex-1 items-center justify-end">
+            <a href={"/" + siblings.next.uri}>
+              <span class="lg:hidden">
+                <Icon name="ArrowRightCircle" />
+              </span>
+              <span class="grec max-lg:hidden">{siblings.next.word}</span>
+            </a>
+          </span>
+        )
+      }
+    </header>
+    {
+      entry.children ? (
+        <section class="space-y-6 lg:space-y-12">
+          {entry.children.map((childEntry, i) => (
+            <article id={String(i)}>
+              <Card content={childEntry.htmlDefinition}>
+                <TagToolbar
+                  client:load
+                  transition:persist
+                  slot="toolBar"
+                  entry={childEntry}
+                />
+              </Card>
+            </article>
+          ))}
+        </section>
+      ) : (
+        <Card content={entry.htmlDefinition}>
+          <TagToolbar
+            client:load
+            transition:persist
+            slot="toolBar"
+            entry={entry}
+          />
+        </Card>
+      )
+    }
+  </entry-article>
+</SingleColumn>
+
+<script>
+  import type { Entry } from "../api";
+  import { IdbHistory } from "../idb";
+
+  class EntryArticle extends HTMLElement {
+    constructor() {
+      super();
+
+      const entry: Pick<
+        Entry<"word" | "uri" | "excerpt">,
+        "word" | "uri" | "excerpt" | "children"
+      > = JSON.parse(this.dataset.entry ?? "");
+      IdbHistory.update(entry);
+    }
+  }
+
+  customElements.define("entry-article", EntryArticle);
+</script>

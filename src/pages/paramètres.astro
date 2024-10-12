@@ -1,0 +1,175 @@
+---
+import ConversionChart from "../components/ConversionChart";
+import ModalLink from "../components/ModalLink";
+import RadioGroup from "../components/RadioGroup.astro";
+import SingleColumn from "../layouts/SingleColumn.astro";
+import { LocalStorageKey } from "../enums";
+
+const title = "Paramètres";
+const description =
+  "Réglez les paramètres d'affichage et de recherche " +
+  "en fonction de vos préférences.";
+
+const themeOptions = [
+  {
+    default: true,
+    display: "Système",
+    value: ""
+  },
+  {
+    display: "Clair",
+    value: "light"
+  },
+  {
+    display: "Foncé",
+    value: "dark"
+  }
+];
+
+/*const searchResultsDisplayOptions = [
+  {
+    default: true,
+    display: "Liste",
+    value: "list"
+  },
+  {
+    display: "Grille",
+    value: "grid"
+  }
+];*/
+
+/*const greekRomanizationOptions = [
+  {
+    default: true,
+    display: "Désactivé",
+    value: false
+  },
+  {
+    display: "Activé",
+    value: true
+  }
+];*/
+
+const searchInputModeOptions = [
+  {
+    default: true,
+    display: "Beta code",
+    value: "betaCode"
+  },
+  {
+    display: "Translittération",
+    value: "transliteration"
+  }
+];
+---
+
+<SingleColumn title={title} description={description} noindex>
+  <form class="space-y-6 lg:space-y-12">
+    <h1 class="text-3xl font-bold leading-normal">{title}</h1>
+
+    <section>
+      <h2>Affichage</h2>
+      <fieldset>
+        <fieldset>
+          <legend>Thème</legend>
+          <p>
+            Lorsque l'option <em>système</em> est active, le thème sélectionné suit
+            auto&shy;mati&shy;que&shy;ment les préférences d'affichage de votre appareil.
+          </p>
+          <RadioGroup
+            groupName="settings-display-theme"
+            options={themeOptions}
+            storageKey={LocalStorageKey.Theme}
+          />
+        </fieldset>
+
+        <!--<fieldset>
+          <legend>Affichage des résultats</legend>
+          <RadioGroup
+            groupName="settings-display-search-results"
+            options={searchResultsDisplayOptions}
+            storageKey={LocalStorageKey.SearchResultsDisplay}
+          />
+        </fieldset>-->
+      </fieldset>
+    </section>
+
+    <section>
+      <h2>Recherche</h2>
+      <fieldset>
+        <fieldset>
+          <legend>Mode de saisie</legend>
+          <p>
+            Le « beta code » non accentué instaure une équivalence arbitraire
+            entre les caractères latins et grecs, tandis que la saisie
+            translittérée correspond à la manière usuelle de présenter du grec à
+            l'usage d'un public non helléniste.
+          </p>
+          <p>
+            Voyez la
+            <ModalLink
+              client:load
+              label="table de correspondance"
+              modalTitle="Table de correspondance"
+            >
+              <ConversionChart slot="modalContent" />
+            </ModalLink>.
+          </p>
+          <RadioGroup
+            groupName="settings-search-input-mode"
+            options={searchInputModeOptions}
+            storageKey={LocalStorageKey.SearchInputMode}
+          />
+        </fieldset>
+      </fieldset>
+    </section>
+
+    <!--<section>
+      <h2>Accessibiltié</h2>
+      <fieldset>
+        <fieldset>
+          <legend>Romanisation du grec</legend>
+          <RadioGroup
+            groupName="settings-display-greek-transliteration"
+            options={greekRomanizationOptions}
+            storageKey={LocalStorageKey.EnableGreekRomanization}
+          />
+        </fieldset>
+      </fieldset>
+    </section>-->
+  </form>
+</SingleColumn>
+
+<style>
+  section {
+    @apply space-y-3 lg:space-y-6;
+  }
+
+  section h2 {
+    @apply text-2xl;
+    @apply font-semibold;
+  }
+
+  section > fieldset {
+    @apply p-3 lg:p-6;
+    @apply bg-white dark:bg-neutral-800;
+    @apply rounded-lg;
+    @apply shadow-xl;
+  }
+
+  fieldset p {
+    @apply mb-1.5;
+    @apply text-sm sm:text-base;
+  }
+
+  fieldset p:last-of-type {
+    @apply mb-3 lg:mb-6;
+  }
+
+  legend {
+    @apply h-auto;
+    @apply mb-1.5 lg:mb-3;
+    @apply text-xl;
+    @apply font-semibold;
+  }
+</style>
