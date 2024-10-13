@@ -22,7 +22,7 @@ export default function DismissibleCard(props: Props) {
     }
   });
 
-  const dismissCard: JSX.EventHandler<SVGSVGElement, MouseEvent> = (event) => {
+  const dismissCard: JSX.EventHandler<SVGSVGElement, MouseEvent> = () => {
     if (props.key) localStorage.setItem(props.key, String(true));
     setShowDismissibleCard(false);
   };
