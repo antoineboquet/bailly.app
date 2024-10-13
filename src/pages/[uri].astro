@@ -70,7 +70,7 @@ const title = entry.word.replace(/\u03D0/g, "β");
       entry.children ? (
         <section class="space-y-6 lg:space-y-12">
           {entry.children.map((childEntry, i) => (
-            <article id={String(i)}>
+            <article id={String(i + 1)}>
               <Card content={childEntry.htmlDefinition}>
                 <TagToolbar
                   client:load
