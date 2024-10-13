@@ -27,7 +27,7 @@ if (!Object.keys(entry).length) return Astro.redirect("/404");
 const title = entry.word.replace(/\u03D0/g, "β");
 ---
 
-<SingleColumn title={title} description={entry.excerpt ?? ""}>
+<SingleColumn title={title} description={entry.excerpt}>
   <entry-article
     class="py-6 text-xl md:py-12"
     data-entry={JSON.stringify(entry)}
