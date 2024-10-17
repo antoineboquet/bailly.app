@@ -1,7 +1,9 @@
 {
-  "name": "bailly-astro",
+  "name": "bailly.app",
+  "version": "2.0.0",
+  "license": "agpl-3.0",
+  "private": true,
   "type": "module",
-  "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
