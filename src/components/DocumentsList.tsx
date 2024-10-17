@@ -16,19 +16,19 @@ export default function DocumentsList() {
     },
     {
       label: "Notice du Bailly 2020 Hugo Chávez",
-      href: setFilePath("/notice-édition-2020.pdf")
+      href: setFilePath("notice-édition-2020.pdf")
     },
     {
       label: "Liste des auteurs et des ouvrages",
-      href: setFilePath("/liste-auteurs-ouvrages.pdf")
+      href: setFilePath("liste-auteurs-ouvrages.pdf")
     },
     {
       label: "Abréviations et signes usuels",
-      href: setFilePath("/abréviations-signes-usuels.pdf")
+      href: setFilePath("abréviations-signes-usuels.pdf")
     },
     {
       label: "Table des mesures",
-      href: setFilePath("/mesures.pdf")
+      href: setFilePath("mesures.pdf")
     }
   ];
 
