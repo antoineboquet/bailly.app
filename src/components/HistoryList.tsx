@@ -10,7 +10,6 @@ import {
 import { LocalStorageKey } from "../enums";
 import { type IdbEntry, IdbHistory } from "../idb";
 import { highlightEntryInExcerpt } from "../helpers";
-import Card from "./Card";
 import Icon from "./Icon";
 
 interface Props {
@@ -115,32 +114,28 @@ export default function HistoryList(props: Props) {
         </aside>
       </header>
 
-      <div
-        class="outline-none"
+      <ul
         classList={{
           "grid gap-x-1.5 gap-y-3 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2":
             Boolean(entries.latest?.length)
         }}
-        role="list"
-        tabindex={-1}
       >
         <Index
           each={entries.latest}
           fallback={<p>Votre historique est vide pour le moment.</p>}
         >
           {(entry) => (
-            <Card
-              aria-role="list-item"
-              class="border border-secondary-200 p-3 shadow-sm transition duration-100 ease-in-out hover:bg-secondary-50 dark:border-neutral-700 dark:hover:bg-neutral-700/50"
-              contentClass="line-clamp-1"
-              disableDefaultClasses={true}
-              href={entry().uri}
-              content={entry().excerpt}
+            <li
+              class="flex border border-secondary-200 shadow-sm transition duration-100 ease-in-out hover:bg-secondary-50 dark:border-neutral-700 dark:hover:bg-neutral-700/50"
               onClick={() => props.setResultsOpen(false)}
-            />
+            >
+              <a href={entry().uri} class="unstyled-link grow p-3">
+                <span class="line-clamp-1" innerHTML={entry().excerpt} />
+              </a>
+            </li>
           )}
         </Index>
-      </div>
+      </ul>
     </section>
   );
 }
