@@ -9,6 +9,7 @@ export type PartialExcept<T, K extends keyof T> = Pick<T, K> &
 
 export type ApiParams<K extends keyof QueryableFields> = {
   fields: (keyof Pick<QueryableFields, K>)[];
+  morphology: boolean;
   caseSensitive?: boolean;
   lengthRange?: [number, number?];
   limit?: number;
@@ -27,7 +28,7 @@ type ApiEntryParams<K extends keyof QueryableFields> = Pick<
 >;
 type ApiLookupParams<K extends keyof QueryableFields> = Pick<
   ApiParams<K>,
-  "fields" | "caseSensitive" | "limit"
+  "fields" | "morphology" | "caseSensitive" | "limit"
 >;
 type ApiRandomEntryParams<K extends keyof QueryableFields> = Pick<
   ApiParams<K>,
@@ -64,7 +65,7 @@ export interface ApiLookupResponse<K extends keyof QueryableFields>
   extends ApiResponse {
   count: number;
   countAll: number;
-  lemmata: MorpheusData;
+  morphology?: MorpheusData;
   entries: Pick<Entry<K>, K | "children" | "isExact" | "isMorpheus">[];
 }
 
@@ -221,7 +222,7 @@ export const fetchEntries = async (
       version: json.data.version,
       count: json.data.count,
       countAll: json.data.countAll,
-      lemmata: {}, // @fixme
+      morphology: {}, // @fixme
       entries: json.data.entries.sort(
         (b, a) => Number(a.isExact) - Number(b.isExact)
       )
