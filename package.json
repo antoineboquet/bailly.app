@@ -23,7 +23,7 @@
     "astro-loading-indicator": "^0.6.0",
     "greek-conversion": "^0.14.1",
     "idb": "^8.0.0",
-    "jose": "^5.9.4",
+    "jose": "^5.9.6",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.6.8",
