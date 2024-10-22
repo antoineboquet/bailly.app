@@ -175,18 +175,17 @@ export default function Bookmarks() {
               content={
                 <>
                   <p>
-                    Cette page vous permet à la fois de consulter et de gérer
-                    vos étiquettes, ainsi que les entrées que vous assignez aux
-                    étiquettes préalablement définies et à la liste des favoris.
+                    Cette page vous permet de consulter et de gérer les entrées
+                    assignées à la liste des favoris, ainsi qu'aux étiquettes
+                    personnalisées que vous aurez préalablement définies.
                   </p>
                   <p>
-                    Veuillez noter que les signets sont conservés dans le{" "}
+                    Les signets sont conservés dans le{" "}
                     <span class="brightness-75 dark:brightness-125">
-                      stockage de votre navigateur Internet
-                    </span>
-                    , ce qui signifie qu'ils sont uniquement accessibles depuis
-                    ce navigateur-là, tant que vous ne supprimez pas les données
-                    de navigation du site.
+                      stockage de votre navigateur
+                    </span>{" "}
+                    et sont uniquement accessibles depuis celui-ci, tant que
+                    vous ne supprimez pas les données de navigation du site.
                   </p>
                 </>
               }

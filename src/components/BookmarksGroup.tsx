@@ -209,8 +209,8 @@ export default function BookmarksGroup(props: Props) {
             when={!favorites}
             fallback={
               <p class="select-none font-sans font-semibold text-primary-500 sm:ml-9 dark:text-primary-400">
-                Retrouvez aisément les entrées que vous consultez le plus
-                souvent en les ajoutant à cette liste.
+                Ajoutez à cette liste les entrées que vous souhaitez retrouver
+                facilement plus tard.
               </p>
             }
           >
