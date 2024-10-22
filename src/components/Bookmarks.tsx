@@ -7,6 +7,7 @@ import {
   Show
 } from "solid-js";
 import { Portal } from "solid-js/web";
+import { LocalStorageKey } from "../enums";
 import { highlightEntryInExcerpt } from "../helpers";
 import {
   IdbResponse,
@@ -18,11 +19,10 @@ import {
   type IdbTagWithKey
 } from "../idb";
 import BookmarksGroup from "./BookmarksGroup";
+import DismissibleCard from "./DismissibleCard";
 import Notification from "./Notification";
 import OrderTags from "./OrderTags";
 import TagCreationInput from "./TagCreationInput";
-import { LocalStorageKey } from "../enums";
-import DismissibleCard from "./DismissibleCard";
 
 const BookmarksLanding = lazy(() => import("./BookmarksLanding"));
 
