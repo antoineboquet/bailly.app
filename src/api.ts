@@ -9,12 +9,13 @@ export type PartialExcept<T, K extends keyof T> = Pick<T, K> &
 
 export type ApiParams<K extends keyof QueryableFields> = {
   fields: (keyof Pick<QueryableFields, K>)[];
-  morphology: boolean;
+  morphology?: boolean;
   caseSensitive?: boolean;
   lengthRange?: [number, number?];
   limit?: number;
   offset?: number;
   siblings?: boolean;
+  skipMorpheus?: boolean;
 };
 
 type ApiEndpointParams<K extends keyof QueryableFields> =
@@ -28,7 +29,7 @@ type ApiEntryParams<K extends keyof QueryableFields> = Pick<
 >;
 type ApiLookupParams<K extends keyof QueryableFields> = Pick<
   ApiParams<K>,
-  "fields" | "morphology" | "caseSensitive" | "limit"
+  "fields" | "morphology" | "caseSensitive" | "limit" | "skipMorpheus"
 >;
 type ApiRandomEntryParams<K extends keyof QueryableFields> = Pick<
   ApiParams<K>,
