@@ -185,10 +185,10 @@ export const fetchOneEntry = async <K extends keyof QueryableFields>(
   };
 };
 
-export const fetchEntries = async (
-  /*<K extends keyof QueryableFields>*/ searchStr: string
-  /*,{ fields, caseSensitive, limit }: ApiLookupParams<K>*/
-): Promise<ApiLookupResponse<"word" | "uri" | "excerpt">> => {
+export const fetchEntries = async <K extends keyof QueryableFields>(
+  searchStr: string,
+  { fields, caseSensitive, limit, skipMorpheus }: ApiLookupParams<K>
+): Promise<ApiLookupResponse<K>> => {
   try {
     if (localStorage.getItem("searchInputMode") === "transliteration") {
       // @fixme: `greek-conversion` should implement a character exclusion list.
@@ -211,13 +211,15 @@ export const fetchEntries = async (
   } finally {
     const response = await fetch(
       buildApiCall("lookup", encodeURI(searchStr), {
-        fields: ["word", "uri", "excerpt"],
-        limit: import.meta.env.PUBLIC_SEARCH_RESULTS_LENGTH
+        fields: fields ?? "",
+        caseSensitive: caseSensitive,
+        limit: limit ?? import.meta.env.PUBLIC_SEARCH_RESULTS_LENGTH,
+        skipMorpheus: skipMorpheus
       })
     );
-    const json: ApiWrappedResponse<
-      ApiLookupResponse<"word" | "uri" | "excerpt">
-    > = await response.json();
+
+    const json: ApiWrappedResponse<ApiLookupResponse<K>> =
+      await response.json();
 
     return {
       version: json.data.version,
