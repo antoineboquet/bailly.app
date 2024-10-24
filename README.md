@@ -27,14 +27,14 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see https://www.gnu.org/licenses/agpl-3.0.fr.html.
 
-## Données
+### Données
 
 Cette application utilise les données du [Bailly 2020 Hugo Chávez](http://gerardgreco.free.fr/spip.php?article52) (Gérard Gréco, André Charbonnet, Mark De Wilde, Bernard Maréchal _et al._), distribuées sous licence _Creative Commons Attribution - Pas d'Utilisation Commerciale - Pas de Modification_ (CC&nbsp;BY-NC-ND&nbsp;4.0).
 
-## Analyse morphologique
+### Analyse morphologique
 
 Cette application utilise l'analyseur morphologique [Morpheus](https://github.com/PerseusDL/morpheus) (Gregory Crane _et al._ pour le compte de l'université Tufts), distribué sous licence _Creative Commons Attribution-ShareAlike 3.0 United States_ (CC&nbsp;BY-SA&nbsp;3.0&nbsp;US).
 
 ### Fontes grecques
 
-Cette application utilise la fonte [Brill](https://brill.com/page/419386), dont l'usage est régi par le *[Brill Fonts End User License Agreement](https://brill.com/page/FontsEndUserLicenseAgreement/brill-fonts-end-user-license-agreement)*, ainsi que la fonte [IFAOGrec](https://www.ifao.egnet.net/publications/outils/polices/#grec) (Jean-Luc Fournet, Ralph Hancock & Adam Bülow-Jacobsen), qui est libre de tous droits, pour rendre les caractères les plus spécifiques.
+Cette application utilise la fonte [Brill](https://brill.com/page/419386), dont l'usage est régi par le _[Brill Fonts End User License Agreement](https://brill.com/page/FontsEndUserLicenseAgreement/brill-fonts-end-user-license-agreement)_, ainsi que la fonte [IFAOGrec](https://www.ifao.egnet.net/publications/outils/polices/#grec) (Jean-Luc Fournet, Ralph Hancock & Adam Bülow-Jacobsen), qui est libre de tous droits, pour rendre les caractères les plus spécifiques.
