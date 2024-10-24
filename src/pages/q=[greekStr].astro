@@ -10,7 +10,7 @@ export const prerender = false;
 
 const { greekStr } = Astro.params;
 
-let data: ApiLookupResponse<"word" | "uri" | "excerpt"> = {
+let data: ApiLookupResponse<"word" | "uri"> = {
   version: "",
   count: 0,
   countAll: 0,
@@ -18,7 +18,7 @@ let data: ApiLookupResponse<"word" | "uri" | "excerpt"> = {
   entries: []
 };
 
-if (greekStr) data = await fetchEntries(greekStr);
+if (greekStr) data = await fetchEntries(greekStr, { fields: ["word", "uri"] });
 
 /*
  * Replace the Greek Beta Symbol with the regular letter as some browsers
