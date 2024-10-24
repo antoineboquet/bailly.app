@@ -26,7 +26,7 @@ const groupID = `${groupName}-radio-group`;
   {
     options.map((item, i, arr) => (
       <label
-        class={`flex flex-1 cursor-pointer select-none flex-col items-center gap-1.5 p-3 text-center font-medium transition-[background-color] hover:bg-primary-50 active:z-50 active:outline dark:hover:bg-neutral-700 ${
+        class={`flex flex-1 cursor-pointer select-none flex-col items-center gap-1.5 p-3 text-center font-medium transition-[background-color] hover:bg-secondary-50 active:z-50 active:outline dark:hover:bg-neutral-700 ${
           (i === 0 && "rounded-bl-lg rounded-tl-lg") ||
           (i === arr.length - 1 && "rounded-br-lg rounded-tr-lg")
         }`}
