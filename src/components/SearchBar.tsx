@@ -14,6 +14,7 @@ import {
   KeyType,
   removeDiacritics,
   toGreek,
+  toTransliteration,
   type IConversionOptions
 } from "greek-conversion";
 import { fetchEntries } from "../api";
@@ -40,12 +41,11 @@ export default function SearchBar() {
 
   let input!: HTMLInputElement;
 
-  const [inputMode, setInputMode] = createSignal<string | null>(null);
-  //const [resultsDisplay, setResultsDisplay] = createSignal<string | null>(null);
-
   const [inputValue, setInputValue] = createSignal("");
-
+  const [skipLemmatization, setSkipLemmatization] = createSignal(false);
+  const [inputMode, setInputMode] = createSignal<string | null>(null);
   const [resultsOpen, setResultsOpen] = createSignal(false);
+  const [preventOpeningResults, setPreventOpeningResults] = createSignal(false);
 
   /**
    * Defines a function that creates a signal used for scheduling execution
@@ -58,14 +58,20 @@ export default function SearchBar() {
 
   /**
    * Fetches entries every time:
+   *   1. the fetcher isn't prevented to fetch;
    *   1. the input value has been updated and isn't empty;
    *   2. the scheduled execution is ready.
    */
-  const [entries, { mutate }] = createResource(
+  const [entries, { mutate, refetch }] = createResource(
     () => (inputValue() && scheduled() ? inputValue() : false),
     () => {
-      showResults();
-      return fetchEntries(inputValue());
+      if (!preventOpeningResults()) showResults();
+      else setPreventOpeningResults(false);
+
+      return fetchEntries(inputValue(), {
+        fields: ["word", "uri", "excerpt"],
+        skipMorpheus: skipLemmatization()
+      });
     },
     {
       initialValue: undefined
@@ -73,30 +79,39 @@ export default function SearchBar() {
   );
 
   onMount(() => {
-    setInputMode(localStorage.getItem(LocalStorageKey.SearchInputMode));
-    /*setResultsDisplay(
-      localStorage.getItem(LocalStorageKey.SearchResultsDisplay)
-    );*/
+    const lsSkipLemmatization: boolean =
+      localStorage.getItem(LocalStorageKey.SearchSkipLemmatization) === "true";
+    const lsInputMode = localStorage.getItem(LocalStorageKey.SearchInputMode);
+
+    setSkipLemmatization(lsSkipLemmatization);
+    setInputMode(lsInputMode);
 
     window.addEventListener("storage", () => {
-      const lastInputMode: string | null = inputMode();
-      setInputMode(localStorage.getItem(LocalStorageKey.SearchInputMode));
+      const lsSkipLemmatization: boolean =
+        localStorage.getItem(LocalStorageKey.SearchSkipLemmatization) ===
+        "true";
+      const lsInputMode = localStorage.getItem(LocalStorageKey.SearchInputMode);
 
-      // @fixme: this should convert the current value without opening the
-      // results list.
+      const lastSkipLemmatizationValue: boolean = skipLemmatization();
+      const lastInputMode: string | null = inputMode();
+
+      setSkipLemmatization(lsSkipLemmatization);
+      setInputMode(lsInputMode);
+
       if (inputMode() !== lastInputMode) {
-        /*const newValue =
+        setPreventOpeningResults(true);
+        const newValue =
           inputMode() === "transliteration"
             ? toTransliteration(input.value, KeyType.GREEK, conversionOptions)
             : toGreek(input.value, KeyType.TRANSLITERATION, conversionOptions);
 
-        setInputValue(newValue);*/
-        clearSearch();
+        setInputValue(newValue);
       }
 
-      /*setResultsDisplay(
-        localStorage.getItem(LocalStorageKey.SearchResultsDisplay)
-      );*/
+      if (skipLemmatization() !== lastSkipLemmatizationValue) {
+        setPreventOpeningResults(true);
+        refetch();
+      }
     });
   });
 
@@ -188,7 +203,6 @@ export default function SearchBar() {
   const showResults = (): void => {
     const appHeader = document.getElementById("app-header");
     const resultsList = document.getElementById("search-results-list");
-    //const resultsGrid = document.getElementById("search-results-grid");
 
     if (resultsList) resultsList.scrollTop = 0;
     document.body.classList.add("noscroll");
@@ -196,11 +210,7 @@ export default function SearchBar() {
 
     appHeader?.addEventListener("click", (event: any) => {
       const t = event.target;
-      if (
-        input !== t &&
-        !resultsList?.contains(t)
-        //&& !resultsGrid?.contains(t)
-      ) {
+      if (input !== t && !resultsList?.contains(t)) {
         document.body.classList.remove("noscroll");
         setResultsOpen(false);
       }
