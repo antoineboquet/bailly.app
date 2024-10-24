@@ -29,11 +29,11 @@ along with this program. If not, see https://www.gnu.org/licenses/agpl-3.0.fr.ht
 
 ## Données
 
-Cette application utilise les données du [Bailly 2020 Hugo Chávez](http://gerardgreco.free.fr/spip.php?article52) (Gérard Gréco, André Charbonnet, Mark De Wilde, Bernard Maréchal _et al._), distribuées sous licence _Creative Commons Attribution - Pas d'Utilisation Commerciale - Pas de Modification_ (CC BY-NC-ND 4.0).
+Cette application utilise les données du [Bailly 2020 Hugo Chávez](http://gerardgreco.free.fr/spip.php?article52) (Gérard Gréco, André Charbonnet, Mark De Wilde, Bernard Maréchal _et al._), distribuées sous licence _Creative Commons Attribution - Pas d'Utilisation Commerciale - Pas de Modification_ (CC&nbsp;BY-NC-ND&nbsp;4.0).
 
 ## Analyse morphologique
 
-Cette application utilise l'analyseur morphologique [Morpheus](https://github.com/PerseusDL/morpheus) (Gregory Crane _et al._ pour le compte de l'université Tufts), distribué sous licence _Creative Commons Attribution-ShareAlike 3.0 United States_ (CC BY-SA 3.0 US).
+Cette application utilise l'analyseur morphologique [Morpheus](https://github.com/PerseusDL/morpheus) (Gregory Crane _et al._ pour le compte de l'université Tufts), distribué sous licence _Creative Commons Attribution-ShareAlike 3.0 United States_ (CC&nbsp;BY-SA&nbsp;3.0&nbsp;US).
 
 ### Fontes grecques
 
