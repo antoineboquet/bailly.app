@@ -1,24 +1,3 @@
-export enum InputMode {
-  BetaCode,
-  Transliteration
-}
-
-export enum LocalStorageKey {
-  CurrentTagKey = "currentTagKey",
-  DismissBookmarksInfoCard = "dismissBookmarksInfoCard",
-  //DismissBookmarksSyncCard = "dismissBookmarksSyncCard",
-  EnableGreekRomanization = "enableGreekRomanization",
-  HistoryLength = "historyLength",
-  SearchResultsDisplay = "searchResultsDisplay",
-  SearchInputMode = "searchInputMode",
-  Theme = "theme"
-}
-
-export enum SearchResultsDisplay {
-  Grid,
-  List
-}
-
 // Note that yellow is reserved for starred entries.
 export enum Colors {
   Blue,
@@ -33,3 +12,19 @@ export enum Colors {
 }
 
 export type Color = keyof typeof Colors;
+
+export enum InputMode {
+  BetaCode,
+  Transliteration
+}
+
+export enum LocalStorageKey {
+  CurrentTagKey = "currentTagKey",
+  DismissBookmarksInfoCard = "dismissBookmarksInfoCard",
+  //DismissBookmarksSyncCard = "dismissBookmarksSyncCard",
+  EnableGreekRomanization = "enableGreekRomanization",
+  HistoryLength = "historyLength",
+  SearchInputMode = "searchInputMode",
+  SearchSkipLemmatization = "searchSkipLemmatization",
+  Theme = "theme"
+}

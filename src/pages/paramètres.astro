@@ -61,6 +61,18 @@ const searchInputModeOptions = [
     value: "transliteration"
   }
 ];
+
+const searchLemmatizationOptions = [
+  {
+    display: "Désactivé",
+    value: true
+  },
+  {
+    default: true,
+    display: "Activé",
+    value: false
+  }
+];
 ---
 
 <SingleColumn title={title} description={description}>
@@ -119,6 +131,20 @@ const searchInputModeOptions = [
             groupName="settings-search-input-mode"
             options={searchInputModeOptions}
             storageKey={LocalStorageKey.SearchInputMode}
+          />
+        </fieldset>
+      </fieldset>
+      <fieldset>
+        <fieldset>
+          <legend>Lemmatisation</legend>
+          <p>
+            Lorsque la lemmatisation est active, les formes fléchies que vous
+            entrez dans la barre de recherche produisent des résultats.
+          </p>
+          <RadioGroup
+            groupName="settings-search-lemmatization"
+            options={searchLemmatizationOptions}
+            storageKey={LocalStorageKey.SearchSkipLemmatization}
           />
         </fieldset>
       </fieldset>
