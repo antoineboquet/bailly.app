@@ -187,7 +187,13 @@ export const fetchOneEntry = async <K extends keyof QueryableFields>(
 
 export const fetchEntries = async <K extends keyof QueryableFields>(
   searchStr: string,
-  { fields, caseSensitive, limit, skipMorpheus }: ApiLookupParams<K>
+  {
+    fields = ["word", "uri", "excerpt"] as K[],
+    morphology = false,
+    caseSensitive = false,
+    limit = import.meta.env.PUBLIC_SEARCH_RESULTS_LENGTH,
+    skipMorpheus = false
+  }: ApiLookupParams<K>
 ): Promise<ApiLookupResponse<K>> => {
   try {
     if (localStorage.getItem("searchInputMode") === "transliteration") {
@@ -211,10 +217,11 @@ export const fetchEntries = async <K extends keyof QueryableFields>(
   } finally {
     const response = await fetch(
       buildApiCall("lookup", encodeURI(searchStr), {
-        fields: fields ?? "",
-        caseSensitive: caseSensitive,
-        limit: limit ?? import.meta.env.PUBLIC_SEARCH_RESULTS_LENGTH,
-        skipMorpheus: skipMorpheus
+        fields,
+        morphology,
+        caseSensitive,
+        limit,
+        skipMorpheus
       })
     );
 
