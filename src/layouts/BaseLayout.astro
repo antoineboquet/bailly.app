@@ -1,7 +1,7 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import LoadingIndicator from "astro-loading-indicator/component";
-import AppHeader from "../components/AppHeader";
+import AppHeader from "./partials/AppHeader.astro";
 import SearchBar from "../components/SearchBar";
 
 interface Props {
@@ -82,17 +82,7 @@ else title += " — Bailly.app";
   </head>
 
   <body>
-    <AppHeader
-      currentPath={decodeURIComponent(Astro.url.pathname)}
-      transition:persist
-    >
-      <SearchBar
-        client:only="solid-js"
-        transition:persist
-        transition:persist-props
-        slot="searchBarSlot"
-      />
-    </AppHeader>
+    <AppHeader />
 
     <main
       class="mt-24 pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] md:mt-16"
