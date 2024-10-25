@@ -42,7 +42,7 @@ export default function ResultsList(props: Props) {
                   item().isExact &&
                   "bg-primary-50 text-primary-700 dark:bg-primary-950 dark:text-primary-200"
                 }`}
-                href={item().uri}
+                href={`/${item().uri}`}
                 onClick={() => props.setResultsOpen(false)}
               >
                 <Show
@@ -68,7 +68,7 @@ export default function ResultsList(props: Props) {
                         <li class="mx-1.5 border-l-2 border-secondary-100 py-1.5 hover:border-primary-700 lg:py-2 dark:border-neutral-600 dark:hover:border-primary-200">
                           <a
                             class="line-clamp-2 pl-6 -indent-3 sm:line-clamp-1 md:line-clamp-2 lg:line-clamp-1 lg:pl-3 lg:indent-0"
-                            href={child().uri}
+                            href={`/${child().uri}`}
                           >
                             {child().excerpt}
                           </a>
