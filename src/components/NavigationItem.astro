@@ -16,7 +16,7 @@ const { ariaLabel, icon, isActive, href, name } = Astro.props;
 <a
   aria-label={ariaLabel}
   href={href}
-  class={`flex items-center transition duration-100 ease-in-out max-xl:h-full xl:flex-col ${
+  class={`flex items-center transition dark:transition-none dark:hover:transition duration-100 ease-in-out max-xl:h-full xl:flex-col ${
     isActive
       ? "text-primary-700 hover:text-primary-700 focus:text-primary-700 dark:text-primary-500 dark:hover:text-primary-500 dark:focus:text-primary-500"
       : "hover:text-primary-700 focus:text-primary-700 dark:hover:text-primary-500 dark:focus:text-primary-500"
