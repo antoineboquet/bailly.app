@@ -29,7 +29,7 @@ export default function RandomEntryCard() {
   return (
     <>
       <Card
-        href={"/" + entry()?.uri}
+        href={`/${entry()?.uri}`}
         class="hidden overflow-y-hidden border-primary-700/50 transition-colors hover:border-primary-700/50 hover-hover:border-secondary-100 lg:block lg:h-96 lg:max-h-96 dark:border-primary-700/50 dark:hover:border-primary-700/50 dark:hover-hover:border-neutral-700/50"
         contentClass="lg:h-full lg:[mask-image:linear-gradient(to_bottom,black_85%,transparent)]"
         fakeContent={entry.loading ? { animated: true, lines: 11 } : undefined}
