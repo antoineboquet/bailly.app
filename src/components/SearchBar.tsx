@@ -147,7 +147,10 @@ export default function SearchBar() {
       end: input.selectionEnd
     };
 
-    setInputValue(unaccentedGreekStr);
+    if (!["^", '"'].includes(unaccentedGreekStr)) {
+      setInputValue(unaccentedGreekStr);
+    }
+
     input.selectionEnd = selection.start;
   };
 
