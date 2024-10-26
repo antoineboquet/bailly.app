@@ -152,8 +152,8 @@ export const fetchRandomEntry = async <K extends keyof QueryableFields>({
 }: ApiRandomEntryParams<K>): Promise<ApiRandomEntryResponse<K>> => {
   const response = await fetch(
     buildApiCall("entry", "random", {
-      fields: fields,
-      lengthRange: lengthRange
+      fields,
+      lengthRange
     })
   );
   const json: ApiWrappedResponse<ApiRandomEntryResponse<K>> =
@@ -172,8 +172,8 @@ export const fetchOneEntry = async <K extends keyof QueryableFields>(
 ): Promise<ApiEntryResponse<K>> => {
   const response = await fetch(
     buildApiCall("entry", uri, {
-      fields: fields,
-      siblings: siblings
+      fields,
+      siblings
     })
   );
   const json: ApiWrappedResponse<ApiEntryResponse<K>> = await response.json();
