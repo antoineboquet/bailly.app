@@ -249,7 +249,7 @@ export const fetchEntries = async <K extends keyof QueryableFields>(
     if (!validateInput(searchStr)) return emptyResponse();
 
     const response = await fetch(
-      buildApiCall("lookup", encodeURI(searchStr), {
+      buildApiCall("lookup", searchStr, {
         fields,
         morphology,
         caseSensitive,
