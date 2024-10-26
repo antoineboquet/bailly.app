@@ -35,7 +35,6 @@ export default function SearchBar() {
     transliterationStyle: {
       useCxOverMacron: true
     },
-    removeDiacritics: true,
     removeExtraWhitespace: true
   };
 
@@ -135,9 +134,14 @@ export default function SearchBar() {
     // Convert input to greek. Note that all characters except the last one
     // entered have already been converted to Greek.
 
+    const unaccentedStr = input.value
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .normalize();
+
     // @fixme: `greek-conversion` should implement a character exclusion list.
     const unaccentedGreekStr = toGreek(
-      input.value.replace(/\?/g, "§"),
+      unaccentedStr.replace(/\?/g, "§"),
       KeyType.BETA_CODE,
       conversionOptions
     ).replace(/§/g, "?");
