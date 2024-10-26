@@ -146,6 +146,37 @@ export const buildApiCall = <K extends keyof QueryableFields>(
   );
 };
 
+function emptyResponse(): ApiLookupResponse<any> {
+  return {
+    version: "",
+    count: 0,
+    countAll: 0,
+    morphology: {},
+    entries: []
+  };
+}
+
+/**
+ * A. [one char] Only allow greek letters (digamma included).
+ * B. (1) Allow a maximum of 50 characters.
+ *    (2) Only allow greek letters (digamma included), spaces
+ *        and metacharacters `^`, `$`, `?`, `*` and `"`;
+ *    (3) Only allow `^` in first position;
+ *    (4) Only allow `$` in last position;
+ *    (5) Allow a maximum of three identical characters in a row.
+ */
+function validateInput(str: string): boolean {
+  if (!str) return false;
+  if (str.length === 1) return /[^α-ωϝ]/i.test(str) === false;
+  return (
+    str.length < 50 &&
+    /[^α-ωϝ\s^$?*"]/i.test(str) === false &&
+    /^.+\^/.test(str) === false &&
+    /\$.+$/.test(str) === false &&
+    /(.)\1{3,}/.test(str) === false
+  );
+}
+
 export const fetchRandomEntry = async <K extends keyof QueryableFields>({
   fields,
   lengthRange
@@ -215,6 +246,8 @@ export const fetchEntries = async <K extends keyof QueryableFields>(
       `<${error instanceof Error ? error.message : String(error)}>`
     );
   } finally {
+    if (!validateInput(searchStr)) return emptyResponse();
+
     const response = await fetch(
       buildApiCall("lookup", encodeURI(searchStr), {
         fields,
