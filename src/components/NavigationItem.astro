@@ -3,14 +3,14 @@ import type { IconName } from "./Icon";
 import Icon from "./Icon";
 
 interface Props {
-  isActive: boolean;
   ariaLabel: string;
   icon: IconName;
+  isActive: boolean;
   href: string;
   name: string;
 }
 
-const { isActive, ariaLabel, icon, href, name } = Astro.props;
+const { ariaLabel, icon, isActive, href, name } = Astro.props;
 ---
 
 <a

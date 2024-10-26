@@ -46,32 +46,32 @@ if (currentPath.at(-1) === "/") currentPath = currentPath.slice(-1);
       class="col-span-6 flex h-12 items-center justify-end gap-x-4 font-semibold max-md:pr-3 md:col-span-2 md:h-auto xl:col-span-4 xl:gap-x-7"
     >
       <!--<NavigationItem
-        href="/explorer"
-        isActive={currentPath === "/explorer"}
-        icon="BookOpen"
-        name="Explorer"
         ariaLabel="Explorer"
+        icon="BookOpen"
+        isActive={currentPath === "/explorer"}
+        href="/explorer"
+        name="Explorer"
       />-->
       <NavigationItem
-        href="/signets"
-        isActive={currentPath === "/signets"}
-        icon="Bookmark"
-        name="Signets"
         ariaLabel="Signets"
+        icon="Bookmark"
+        isActive={currentPath === "/signets"}
+        href="/signets"
+        name="Signets"
       />
       <NavigationItem
-        href="/paramètres"
-        isActive={currentPath === "/paramètres"}
-        icon="AdjustmentsHorizontal"
-        name="Paramètres"
         ariaLabel="Paramètres"
+        icon="AdjustmentsHorizontal"
+        isActive={currentPath === "/paramètres"}
+        href="/paramètres"
+        name="Paramètres"
       />
       <NavigationItem
-        href="/à-propos"
-        isActive={currentPath === "/à-propos"}
-        icon="InformationCircle"
-        name="À propos"
         ariaLabel="À propos"
+        icon="InformationCircle"
+        isActive={currentPath === "/à-propos"}
+        href="/à-propos"
+        name="À propos"
       />
     </div>
   </nav>
