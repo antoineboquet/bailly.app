@@ -29,7 +29,7 @@ export default function DismissibleCard(props: Props) {
 
   return (
     <Show when={showDismissibleCard()}>
-      <article class="rounded-lg bg-secondary-200 p-3 shadow-lg shadow-black/5 dark:bg-secondary-950">
+      <article class="select-none rounded-lg bg-secondary-200 p-3 shadow-lg shadow-black/5 dark:bg-secondary-950">
         <header class="mb-3 flex items-center">
           <h2 class="flex flex-1 items-center font-sans text-xl font-semibold text-secondary-700 lg:text-2xl dark:text-secondary-400">
             <Show when={props.icon}>
