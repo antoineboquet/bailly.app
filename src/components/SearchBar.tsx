@@ -128,7 +128,9 @@ export default function SearchBar() {
     if (!input.value) return clearSearch();
 
     if (inputMode() === "transliteration") {
-      return void setInputValue(input.value);
+      if (!["^", '"'].includes(input.value)) {
+        return void setInputValue(input.value);
+      }
     }
 
     // Convert input to greek. Note that all characters except the last one
