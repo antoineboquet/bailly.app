@@ -35,6 +35,7 @@ export default function SearchBar() {
     transliterationStyle: {
       useCxOverMacron: true
     },
+    removeDiacritics: true,
     removeExtraWhitespace: true
   };
 
@@ -102,7 +103,11 @@ export default function SearchBar() {
         const newValue =
           inputMode() === "transliteration"
             ? toTransliteration(input.value, KeyType.GREEK, conversionOptions)
-            : toGreek(input.value, KeyType.TRANSLITERATION, conversionOptions);
+            : toGreek(
+                input.value.replace(/\?/g, "§"),
+                KeyType.TRANSLITERATION,
+                conversionOptions
+              ).replace(/§/g, "?");
 
         setInputValue(newValue);
       }
