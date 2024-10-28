@@ -18,6 +18,8 @@ export default {
     "aut",
     "entreea",
     "es",
+    "etiqetymor",
+    "etiqetymrev",
     "etymor",
     "etymrev",
     "fleche",
