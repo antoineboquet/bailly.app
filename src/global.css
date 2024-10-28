@@ -1,6 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /*
-* Inter Variable font.
-*/
+ * Inter Variable font.
+ */
 
 @font-face {
   font-family: Inter;
@@ -19,9 +23,9 @@
 }
 
 /*
-* Brill font.
-*   Use `font-display: block;` because of the uncommon sizing.
-*/
+ * Brill font.
+ *   Use `font-display: block;` because of the uncommon sizing.
+ */
 
 @font-face {
   font-family: Brill;
@@ -54,10 +58,10 @@
 }
 
 /*
-* Brill Epichoric font (X).
-*   The Private Use Area mapping doesn't match that used for
-*   the dictionary data.
-*/
+ * Brill Epichoric font (X).
+ *   The Private Use Area mapping doesn't match that used for
+ *   the dictionary data.
+ */
 /*@font-face {
   font-family: BrillEpichoric;
   font-weight: normal;
@@ -66,10 +70,10 @@
 }*/
 
 /*
-* IFAOGrec font.
-*   Needed for uncommon characters (serves as a fallback to the Brill font).
-*   Enable the following unicode ranges: Greek, diacritics, private use area.
-*/
+ * IFAOGrec font.
+ *   Needed for uncommon characters (serves as a fallback to the Brill font).
+ *   Enable the following unicode ranges: Greek, diacritics, private use area.
+ */
 
 @font-face {
   font-family: IFAOGrec;
@@ -78,10 +82,6 @@
   src: url("/fonts/IFAOGrec.woff2") format("woff2");
   unicode-range: U+0370-03FF, U+1F00-1FFF, U0300-036F, UE000-F8FF;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @font-face {
   font-family: IFAOGrec;
@@ -109,7 +109,7 @@
     @apply focus:z-10 active:z-10;
   }
 
-  /* See `../components/Card.tsx` > `handleLinkClick()`. */
+  /* See `./components/Card.tsx` > `handleLinkClick()`. */
   a:has(> [data-toolbar]:hover) {
     @apply outline-none;
     @apply border-inherit;
@@ -210,9 +210,9 @@
 
 @layer components {
   /*
-    * Add `relative`/`z-20` so that icons remain visible on focusable
-    * elements whose z-index is set to 10.
-    */
+  * Add `relative`/`z-20` so that icons remain visible on focusable
+   * elements whose z-index is set to 10.
+   */
   .button {
     @apply z-20;
     @apply relative;
@@ -335,12 +335,12 @@
   }
 
   /*
-    * Fixes `.flechea` color.
-    *   When the dark theme was activated manually, the arrow doesn't adjust
-    *   its color using `currentColor` because the 'content' rule creates a
-    *   separate scope. For this reason, rules  `color`/`fill` rules don't
-    *   work here too.
-    */
+   * Fixes `.flechea` color.
+   *   When the dark theme was activated manually, the arrow doesn't adjust
+   *   its color using `currentColor` because the 'content' rule creates a
+   *   separate scope. For this reason, rules  `color`/`fill` rules don't
+   *   work here too.
+   */
   html.dark .flechea {
     filter: invert(100%) sepia(2%) saturate(171%) hue-rotate(282deg)
       brightness(120%) contrast(92%);
