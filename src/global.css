@@ -260,6 +260,11 @@
     @apply dark:text-neutral-300;
   }
 
+  /*
+   * Entry classes. As the entries are stored in a database, the following
+   * classes must be added to the Tailwind's safelist.
+   */
+
   .entreea,
   .des,
   .gens,

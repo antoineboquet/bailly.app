@@ -14,8 +14,36 @@ export default {
     })
   ],
   safelist: [
+    // Entry classes.
+    "aut",
+    "entreea",
+    "es",
+    "etymor",
+    "etymrev",
+    "fleche",
+    "flechea",
+    "des",
+    "gens",
+    "gras",
+    "ital",
+    "moyen",
+    "oeuv",
+    "oeuva",
+    "refch",
+    "refpa",
+    "refpb",
+    "rom",
+    "Rub",
+    "rub",
+    "Ruba",
+    "ruba",
+    "pp",
+    "ppa",
+    "sect",
+    "secta",
+    "up",
     {
-      // Cf. .src/helpers.ts > getColorClasses().
+      // Cf. ./src/helpers.ts > getColorClasses().
       pattern:
         /(fill|text)-(blue|green|lime|orange|purple|red|rose|slate|teal)-(400|600)$/,
       variants: [
