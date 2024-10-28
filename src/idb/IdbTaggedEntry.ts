@@ -8,7 +8,7 @@ import {
   type BaillyDB,
   type IdbEntryCreation,
   type IdbTagged
-} from ".";
+} from "./Idb";
 
 export class IdbTaggedEntry {
   private constructor() {}

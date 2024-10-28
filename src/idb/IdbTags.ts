@@ -9,7 +9,7 @@ import {
   type IdbTag,
   type IdbTagged,
   type IdbTagWithKey
-} from ".";
+} from "./Idb";
 import { Colors, LocalStorageKey, type Color } from "../enums";
 
 type TagOrder = "position" | "insertion";
