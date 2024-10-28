@@ -17,7 +17,7 @@
     "@astrojs/cloudflare": "^11.2.0",
     "@astrojs/solid-js": "^4.4.2",
     "@astrojs/tailwind": "^5.1.2",
-    "@solid-primitives/scheduled": "^1.4.3",
+    "@solid-primitives/scheduled": "^1.4.4",
     "@thisbeyond/solid-dnd": "^0.7.5",
     "astro": "^4.16.7",
     "astro-loading-indicator": "^0.6.0",
