@@ -105,7 +105,7 @@ export default function TagToolbar(props: Props) {
         data-toolbar
         class={`${props.class ?? ""} ${props.entry ? "cursor-pointer" : ""} ${
           componentReady() ? "visible opacity-100" : "invisible opacity-0"
-        } relative -right-1 -top-1 z-40 float-right inline-flex rounded-lg border border-neutral-200 bg-white font-sans text-neutral-400 transition-opacity duration-100 hover:border-neutral-300 hover:shadow-md lg:-right-2 lg:-top-2 dark:border-neutral-600 dark:bg-neutral-800 dark:shadow-neutral-950 dark:hover:border-neutral-500`}
+        } relative -right-1 -top-1 z-40 float-right inline-flex rounded-lg border border-neutral-200 bg-white font-sans text-neutral-400 transition-opacity duration-300 hover:border-neutral-300 hover:shadow-md lg:-right-2 lg:-top-2 dark:border-neutral-600 dark:bg-neutral-800 dark:shadow-neutral-950 dark:hover:border-neutral-500`}
       >
         <Show when={actionErrored()}>
           <Portal>
