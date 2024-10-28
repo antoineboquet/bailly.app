@@ -210,7 +210,7 @@
 
 @layer components {
   /*
-  * Add `relative`/`z-20` so that icons remain visible on focusable
+   * Add `relative`/`z-20` so that icons remain visible on focusable
    * elements whose z-index is set to 10.
    */
   .button {
