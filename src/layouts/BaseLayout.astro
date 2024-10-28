@@ -52,6 +52,7 @@ else title += " — Bailly.app";
       type="font/woff2"
       crossorigin
     />
+    <title>{title}</title>
     <script is:inline data-astro-rerun>
       if (
         localStorage.getItem("theme") === "dark" ||
@@ -73,12 +74,9 @@ else title += " — Bailly.app";
           }
         });
     </script>
-    <title>{title}</title>
-
-    <ViewTransitions />
-
     <!-- colors.primary.600 -->
     <LoadingIndicator color="#cf6710" />
+    <ViewTransitions />
   </head>
 
   <body>
