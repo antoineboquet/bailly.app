@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import LoadingIndicator from "astro-loading-indicator/component";
 import AppHeader from "./partials/AppHeader.astro";
 import "../global.css";
@@ -76,7 +76,7 @@ else title += " — Bailly.app";
     </script>
     <!-- colors.primary.600 -->
     <LoadingIndicator color="#cf6710" />
-    <ViewTransitions />
+    <ClientRouter />
   </head>
 
   <body>

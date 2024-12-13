@@ -12,6 +12,5 @@ export default defineConfig({
       applyBaseStyles: false
     })
   ],
-  output: "server",
   trailingSlash: "never"
 });
