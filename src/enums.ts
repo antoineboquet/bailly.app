@@ -22,6 +22,7 @@ export enum LocalStorageKey {
   CurrentTagKey = "currentTagKey",
   DismissBookmarksInfoCard = "dismissBookmarksInfoCard",
   //DismissBookmarksSyncCard = "dismissBookmarksSyncCard",
+  DismissSearchBarMorphologicalResultsWarning = "dismissSearchBarMorphologicalResultsWarning",
   EnableGreekRomanization = "enableGreekRomanization",
   HistoryLength = "historyLength",
   SearchInputMode = "searchInputMode",

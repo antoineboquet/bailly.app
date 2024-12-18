@@ -1,6 +1,8 @@
 import { createMemo, Index, Show, type Resource, type Setter } from "solid-js";
 import type { ApiLookupResponse } from "../api";
+import { LocalStorageKey } from "../enums";
 import HistoryList from "./HistoryList";
+import DismissibleCard from "./DismissibleCard";
 
 interface Props {
   id?: string;
@@ -34,6 +36,16 @@ export default function ResultsList(props: Props) {
           props.searchValue && props.entries.latest ? "block" : "hidden"
         } divide-y divide-secondary-100 outline-none dark:divide-neutral-700`}
       >
+        <Show when={entries().some(el => el.isMorpheus)}>
+          <li>
+            <DismissibleCard
+              class="m-3"
+              content="Les résultats issus de l'analyse morphologique, signalés par une icône scintillante, peuvent être lacunaires. Gardez l'esprit critique !"
+              icon="Sparkles"
+              key={LocalStorageKey.DismissSearchBarMorphologicalResultsWarning}
+            />
+          </li>
+        </Show>
         <Index each={entries()}>
           {(item) => (
             <li>
