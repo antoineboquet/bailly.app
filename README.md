@@ -2,7 +2,7 @@
 > Ce dépôt contient uniquement le client de l'application Bailly. L'API se trouve dans le dépôt [bailly-api](https://github.com/antoineboquet/bailly-api).
 
 <p align="center">
-  <br><br><img width="192" height="192" src="public/android-chrome-192x192.png">
+  <br><br><img width="192" height="192" src="public/favicon/favicon.svg">
 </p>
 
 <p align="center">
