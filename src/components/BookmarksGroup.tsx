@@ -244,7 +244,7 @@ export default function BookmarksGroup(props: Props) {
                       : "max-sm:whitespace-nowrap max-sm:overflow-hidden max-sm:fade-content line-clamp-4"
                   } ${editMode() ? "text-neutral-600 dark:text-neutral-300" : ""}
                   `}
-                  href={!editMode() ? entry().uri : undefined}
+                  href={!editMode() ? `/${entry().uri}` : undefined}
                   toolBar={
                     <Show when={editMode()}>
                       <span
