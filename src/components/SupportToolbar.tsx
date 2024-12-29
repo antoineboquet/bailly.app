@@ -36,6 +36,13 @@ export default function SupportToolbar() {
         }
         onClick={handleContact}
       />
+      
+      <a
+        class="flex p-1.5 transition hover:text-neutral-500 dark:hover:text-neutral-200"
+        href="https://www.paypal.com/donate/?hosted_button_id=HFBZZVKRBE7HY"
+      >
+        <Icon name="Star" />
+      </a>
     </span>
   );
 }

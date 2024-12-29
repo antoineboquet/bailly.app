@@ -10,7 +10,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <div
     class="relative mx-auto grid-cols-12 items-center gap-12 p-6 sm:max-w-screen-sm sm:p-12 xl:grid xl:max-w-screen-xl"
   >
-    <article class="col-span-6 space-y-6">
+    <article class="col-span-6 col-start-3 space-y-6">
       <header class="sm:text-center xl:text-left">
         <h1 class="text-3xl font-bold xl:text-4xl">
           À propos d'un dictionnaire<br />
@@ -74,33 +74,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       </section>
     </article>
 
-    <Mentions class="col-span-6 hidden xl:grid" />
+    <Mentions class="col-span-4 hidden xl:grid" />
   </div>
-
-  <div class="background"></div>
 </BaseLayout>
-
-<style>
-  body {
-    @apply bg-none;
-  }
-
-  .background {
-    @apply absolute;
-    @apply inset-0;
-    @apply -z-10;
-    @apply bg-top;
-    @apply bg-no-repeat;
-    @apply bg-cover;
-    mask-image: linear-gradient(
-      to top right,
-      transparent 55%,
-      black 65%,
-      black 100%
-    );
-    @apply xl:bg-[url('/bailly-illustration.webp')];
-    @apply opacity-30 dark:opacity-20;
-    @apply dark:bg-blend-darken;
-    @apply dark:invert;
-  }
-</style>
