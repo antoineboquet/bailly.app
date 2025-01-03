@@ -2,6 +2,7 @@
 import ConversionChart from "../components/ConversionChart";
 import ModalLink from "../components/ModalLink";
 import RadioGroup from "../components/RadioGroup.astro";
+import type { RadioGroupOptions } from "../components/RadioGroup.astro";
 import SingleColumn from "../layouts/SingleColumn.astro";
 import { LocalStorageKey } from "../enums";
 
@@ -10,7 +11,7 @@ const description =
   "Réglez les paramètres d'affichage et de recherche " +
   "en fonction de vos préférences.";
 
-const themeOptions = [
+const themeOptions: RadioGroupOptions[] = [
   {
     default: true,
     display: "Système",
@@ -26,7 +27,7 @@ const themeOptions = [
   }
 ];
 
-/*const searchResultsDisplayOptions = [
+/*const searchResultsDisplayOptions: RadioGroupOptions[] = [
   {
     default: true,
     display: "Liste",
@@ -38,7 +39,7 @@ const themeOptions = [
   }
 ];*/
 
-/*const greekRomanizationOptions = [
+/*const greekRomanizationOptions: RadioGroupOptions[] = [
   {
     default: true,
     display: "Désactivé",
@@ -50,7 +51,7 @@ const themeOptions = [
   }
 ];*/
 
-const searchInputModeOptions = [
+const searchInputModeOptions: RadioGroupOptions[] = [
   {
     default: true,
     display: "Beta code",
@@ -62,7 +63,7 @@ const searchInputModeOptions = [
   }
 ];
 
-const searchLemmatizationOptions = [
+const searchLemmatizationOptions: RadioGroupOptions[] = [
   {
     display: "Désactivé",
     value: true

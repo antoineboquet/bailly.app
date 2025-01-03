@@ -1,8 +1,8 @@
 ---
 import type { LocalStorageKey } from "../enums";
 
-type RadioGroupOptions = {
-  default?: boolean;
+export type RadioGroupOptions = {
+  default?: true;
   display: string;
   value: string | boolean;
 };
@@ -34,7 +34,7 @@ const groupID = `${groupName}-radio-group`;
         <span>{item.display}</span>
         <input
           class="accent-primary-600 outline-none"
-          data-default={Boolean(item.default)}
+          data-default={item.default}
           name={groupName}
           type="radio"
           value={String(item.value)}
