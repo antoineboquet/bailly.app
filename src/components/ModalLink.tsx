@@ -4,6 +4,7 @@ import Modal from "./Modal";
 import Icon from "./Icon";
 
 interface Props {
+  class?: string;
   type?: "link" | "button";
   label: JSX.Element | string;
   modalIcon?: IconName;
@@ -36,7 +37,7 @@ export default function ModalLink(props: Props) {
         fallback={
           <span
             role="button"
-            class="fake-link"
+            class={`${props.class ?? ""} fake-link`}
             onClick={(event) => toggleModal(event)}
           >
             {props.label}
@@ -46,7 +47,7 @@ export default function ModalLink(props: Props) {
         <button
           aria-label={props.modalTitle}
           type="button"
-          class="button"
+          class={`${props.class ?? ""} button`}
           onClick={(event) => toggleModal(event)}
         >
           <Show when={props.modalIcon} fallback={props.label}>
