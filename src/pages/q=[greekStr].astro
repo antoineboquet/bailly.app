@@ -44,17 +44,17 @@ const title = greekStr?.replace(/\u03D0/g, "β") ?? "";
       </h1>
     </header>
     {
-      data.entries.length && (
+      data.entries.length ? (
         <section>
           <ul>
             {data.entries.map((entry) => (
               <li>
-                <a href={entry.uri}>{entry.word}</a>
+                <a href={`/${entry.uri}`}>{entry.word}</a>
               </li>
             ))}
           </ul>
         </section>
-      )
+      ) : undefined
     }
   </entry-article>
 </SingleColumn>
