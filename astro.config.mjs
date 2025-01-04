@@ -6,6 +6,9 @@ import tailwind from "@astrojs/tailwind";
 // https://astro.build/config
 export default defineConfig({
   adapter: cloudflare(),
+  build: {
+    format: "file"
+  },
   integrations: [
     solidJs(),
     tailwind({
