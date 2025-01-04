@@ -87,7 +87,7 @@ export default function TagCreationInput(props: Props) {
 
       <button
         aria-label="Créer une nouvelle étiquette"
-        class="button absolute right-2 h-auto w-auto px-2 py-1 shadow-none xl:px-3 xl:pl-2.5"
+        class="button absolute right-2 h-auto w-auto min-w-0 px-2 py-1 shadow-none xl:px-3 xl:pl-2.5"
         disabled
         onClick={onButtonClick}
         ref={submitButton}
