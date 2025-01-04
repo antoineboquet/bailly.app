@@ -129,7 +129,7 @@ export default function HistoryList(props: Props) {
               class="flex border border-secondary-200 shadow-sm transition duration-100 ease-in-out hover:bg-secondary-50 dark:border-neutral-700 dark:hover:bg-neutral-700/50"
               onClick={() => props.setResultsOpen(false)}
             >
-              <a href={entry().uri} class="unstyled-link grow p-3">
+              <a href={`/${entry().uri}`} class="unstyled-link grow p-3">
                 <span class="line-clamp-1" innerHTML={entry().excerpt} />
               </a>
             </li>
