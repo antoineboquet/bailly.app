@@ -12,7 +12,7 @@ export default function ContactButton() {
   return (
     <ModalLink
       type="button"
-      class="!bg-white dark:!bg-slate-600 hover:!bg-slate-100 dark:hover:!bg-slate-500 !text-slate-600 dark:!text-white" 
+      class="!bg-slate-100 dark:!bg-slate-600 hover:!bg-slate-200 dark:hover:!bg-slate-500 !text-slate-600 dark:!text-white" 
       label="Contacter"
       modalIcon="Envelope"
       modalTitle="Contact"
