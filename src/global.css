@@ -202,6 +202,12 @@
     @apply ml-0.5;
   }
 
+  /* See `.button`. */
+  a[target="_blank"].button {
+    @apply max-lg:w-auto;
+    @apply px-3.5;
+  }
+
   a[target="_blank"].button::after {
     @apply mr-0;
   }
@@ -228,8 +234,8 @@
     @apply items-center;
     @apply self-center;
     @apply h-12;
-    @apply max-lg:min-w-12;
-    @apply px-3.5;
+    @apply max-lg:w-12;
+    @apply lg:px-3.5;
     @apply lg:py-1;
     @apply rounded-full;
     @apply shadow-lg;
