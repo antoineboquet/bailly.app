@@ -2,8 +2,7 @@
 import NavigationItem from "../../components/NavigationItem.astro";
 import SearchBar from "../../components/SearchBar";
 
-let currentPath = decodeURIComponent(Astro.url.pathname);
-if (currentPath.at(-1) === "/") currentPath = currentPath.slice(-1);
+const currentPath = decodeURIComponent(Astro.url.pathname).replace(/(.+)(\/|\.html)$/, "$1");
 ---
 
 <header
