@@ -3,6 +3,7 @@
  * This is for compatibility with gaffiot.fr references.
  */
 
+import { KeyType, removeDiacritics } from "greek-conversion";
 import { fetchEntries, type ApiLookupResponse } from "../api";
 import SingleColumn from "../layouts/SingleColumn.astro";
 
@@ -18,13 +19,22 @@ let data: ApiLookupResponse<"word" | "uri"> = {
   entries: []
 };
 
-if (greekStr) data = await fetchEntries(greekStr, { fields: ["word", "uri"] });
+const unaccentedGreekStr = removeDiacritics(greekStr ?? "", KeyType.GREEK);
+
+const NFDUnaccentedGreekStr = unaccentedGreekStr.normalize("NFD");
+const isGreekStr: boolean = (
+  !/[a-z]/i.test(NFDUnaccentedGreekStr) && /[α-ω]/i.test(NFDUnaccentedGreekStr)
+);
+
+if (unaccentedGreekStr && isGreekStr) {
+  data = await fetchEntries(unaccentedGreekStr, { fields: ["word", "uri"] });
+}
 
 /*
  * Replace the Greek Beta Symbol with the regular letter as some browsers
  * may not display it accurately.
  */
-const title = greekStr?.replace(/\u03D0/g, "β") ?? "";
+const title = unaccentedGreekStr?.replace(/\u03D0/g, "β") ?? "";
 ---
 
 <SingleColumn title={title} description="" noindex>
@@ -36,13 +46,22 @@ const title = greekStr?.replace(/\u03D0/g, "β") ?? "";
       <h1 class="text-2xl font-bold leading-loose lg:text-3xl">
         {
           data.entries.length ? (
-            <>Résultats pour «&nbsp;{greekStr}&nbsp;»</>
+            <>Résultats pour «&nbsp;{unaccentedGreekStr}&nbsp;»</>
           ) : (
-            <>Aucun résultat pour «&nbsp;{greekStr}&nbsp;»</>
+            <>Aucun résultat pour «&nbsp;{unaccentedGreekStr}&nbsp;»</>
           )
         }
       </h1>
     </header>
+
+    {
+      !isGreekStr ? (
+        <section>
+          <p>Les recherches doivent être rédigées en caractères grecs.</p>
+        </section>
+      ) : undefined
+    }
+
     {
       data.entries.length ? (
         <section>
