@@ -3,7 +3,7 @@
  * This is for compatibility with gaffiot.fr references.
  */
 
-import { KeyType, removeDiacritics } from "greek-conversion";
+import { applyGreekVariants, KeyType, removeDiacritics } from "greek-conversion";
 import { fetchEntries, type ApiLookupResponse } from "../api";
 import SingleColumn from "../layouts/SingleColumn.astro";
 
@@ -19,15 +19,15 @@ let data: ApiLookupResponse<"word" | "uri"> = {
   entries: []
 };
 
-const unaccentedGreekStr = removeDiacritics(greekStr ?? "", KeyType.GREEK);
+const sanitizedGreekStr = applyGreekVariants(removeDiacritics(greekStr ?? "", KeyType.GREEK));
 
-const NFDUnaccentedGreekStr = unaccentedGreekStr.normalize("NFD");
+const NFDSanitizedGreekStr = sanitizedGreekStr.normalize("NFD");
 const isGreekStr: boolean = (
-  !/[a-z]/i.test(NFDUnaccentedGreekStr) && /[α-ω]/i.test(NFDUnaccentedGreekStr)
+  !/[a-z]/i.test(NFDSanitizedGreekStr) && /[α-ω]/i.test(NFDSanitizedGreekStr)
 );
 
-if (unaccentedGreekStr && isGreekStr) {
-  data = await fetchEntries(unaccentedGreekStr, { fields: ["word", "uri"] });
+if (sanitizedGreekStr && isGreekStr) {
+  data = await fetchEntries(sanitizedGreekStr, { fields: ["word", "uri"] });
 
   // Go to the definition if there is only one exact result.
   if (data.entries.length === 1 && data.entries[0].isExact) {
@@ -39,7 +39,7 @@ if (unaccentedGreekStr && isGreekStr) {
  * Replace the Greek Beta Symbol with the regular letter as some browsers
  * may not display it accurately.
  */
-const title = unaccentedGreekStr?.replace(/\u03D0/g, "β") ?? "";
+const title = sanitizedGreekStr?.replace(/\u03D0/g, "β") ?? "";
 ---
 
 <SingleColumn title={title} description="" noindex>
@@ -51,9 +51,9 @@ const title = unaccentedGreekStr?.replace(/\u03D0/g, "β") ?? "";
       <h1 class="text-2xl font-bold leading-loose lg:text-3xl">
         {
           data.entries.length ? (
-            <>Résultats pour «&nbsp;{unaccentedGreekStr}&nbsp;»</>
+            <>Résultats pour «&nbsp;{sanitizedGreekStr}&nbsp;»</>
           ) : (
-            <>Aucun résultat pour «&nbsp;{unaccentedGreekStr}&nbsp;»</>
+            <>Aucun résultat pour «&nbsp;{sanitizedGreekStr}&nbsp;»</>
           )
         }
       </h1>
