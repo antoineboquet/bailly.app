@@ -28,6 +28,11 @@ const isGreekStr: boolean = (
 
 if (unaccentedGreekStr && isGreekStr) {
   data = await fetchEntries(unaccentedGreekStr, { fields: ["word", "uri"] });
+
+  // Go to the definition if there is only one exact result.
+  if (data.entries.length === 1 && data.entries[0].isExact) {
+    return Astro.redirect(`/${encodeURIComponent(data.entries[0].uri)}`);
+  }
 }
 
 /*
