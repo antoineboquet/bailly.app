@@ -80,7 +80,15 @@ const title = sanitizedGreekStr?.replace(/\u03D0/g, "β") ?? "";
             {data.entries.map((entry) => (
               <li class="space-y-1.5 lg:space-y-3">
                 <a href={`/${entry.uri}`}>{entry.word}</a>
-                <blockquote class="ml-2.5 lg:ml-5 text-base text-neutral-700">{entry.excerpt}</blockquote>
+                  {entry.children?.length ? (
+                    <ol class="list-decimal pl-8 lg:pl-10 lg:space-y-1.5">
+                      {entry.children.map((child) => (
+                        <li><blockquote class="text-base text-neutral-700">{child.excerpt}</blockquote></li>
+                      ))}
+                    </ol>
+                  ) :
+                  <blockquote class="ml-2.5 lg:ml-5 text-base text-neutral-700">{entry.excerpt}</blockquote>
+                }
               </li>
             ))}
           </ul>
