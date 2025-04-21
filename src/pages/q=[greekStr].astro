@@ -35,6 +35,9 @@ if (sanitizedGreekStr && isGreekStr) {
   data.count = data.entries.length;
   data.countAll = data.count;
 
+  // Sort non-Morpheus results first.
+  data.entries.sort((a, b) => Number(a.isMorpheus) - Number(b.isMorpheus));
+
   // Go to the definition if there is only one exact result.
   if (data.entries.length === 1) {
     return Astro.redirect(`/${encodeURIComponent(data.entries[0].uri)}`);
@@ -79,7 +82,7 @@ const title = sanitizedGreekStr?.replace(/\u03D0/g, "β") ?? "";
           <ul class="space-y-1.5 lg:space-y-3">
             {data.entries.map((entry) => (
               <li class="space-y-1.5 lg:space-y-3">
-                <a href={`/${entry.uri}`}>{entry.word}</a>
+                <a href={`/${entry.uri}`}>{entry.word}</a>{entry.isMorpheus && " ✨"}
                   {entry.children?.length ? (
                     <ol class="list-decimal pl-8 lg:pl-10 lg:space-y-1.5">
                       {entry.children.map((child) => (
