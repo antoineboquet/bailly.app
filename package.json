@@ -13,16 +13,16 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/cloudflare": "^12.5.0",
-    "@astrojs/solid-js": "^5.0.8",
+    "@astrojs/cloudflare": "^12.6.0",
+    "@astrojs/solid-js": "^5.1.0",
     "@astrojs/tailwind": "^5.1.5",
-    "@solid-primitives/scheduled": "^1.5.0",
+    "@solid-primitives/scheduled": "^1.5.2",
     "@thisbeyond/solid-dnd": "^0.7.5",
-    "astro": "^5.7.4",
+    "astro": "^5.10.2",
     "astro-loading-indicator": "^0.7.0",
     "greek-conversion": "^0.14.1",
-    "idb": "^8.0.2",
-    "solid-js": "^1.9.5",
+    "idb": "^8.0.3",
+    "solid-js": "^1.9.7",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3"
   }
