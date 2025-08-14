@@ -1,4 +1,5 @@
 ---
+import { KeyType, Preset, toTransliteration } from "greek-conversion";
 import { fetchOneEntry } from "../api";
 import Card from "../components/Card";
 import Icon from "../components/Icon";
@@ -27,7 +28,7 @@ if (entry.uri !== uri) return Astro.redirect(`/${entry.uri}`);
  * Replace the Greek Beta Symbol with the regular letter as some browsers
  * may not display it accurately.
  */
-const title = entry.word.replace(/\u03D0/g, "β");
+const title = `${entry.word.replace(/\u03D0/g, "β")} (${toTransliteration(entry.word, KeyType.GREEK, Preset.ALA_LC)})`;
 ---
 
 <SingleColumn title={title} description={entry.excerpt}>
