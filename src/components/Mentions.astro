@@ -1,34 +1,31 @@
 ---
 import ContributorsList from "./ContributorsList";
 import ModalLink from "./ModalLink";
-
-interface Props {
-  class?: string;
-}
-
-const { class: className } = Astro.props;
 ---
 
-<article class:list={[className]}>
+<article class="rounded-lg bg-secondary-50 p-3 text-lg leading-tight dark:bg-neutral-900">
   <section>
-    <h2>Application «&nbsp;Bailly&nbsp;»</h2>
-    <p>
-      Antoine Boquet &amp; Benjamin Georges / licence <em
+    <h2 class="text-secondary-950 dark:text-secondary-200">Application «&nbsp;Bailly&nbsp;»</h2>
+    <p class="text-secondary-800 dark:text-secondary-400">
+      Antoine Boquet &amp; Benjamin Georges, dans le cadre de l'Association pour la défense des humanités [<a href="https://humanites.fr" target="_blank" rel="noopener"
+        >en ligne</a
+      >] / licence <em
         >GNU Affero General Public License</em
-      > (AGPL-3.0-or-later) (<a href="COPYING" target="_blank" rel="noopener"
+      > (AGPL-3.0-or-later ; <a href="COPYING" target="_blank" rel="noopener"
         >texte&nbsp;intégral</a
-      >) / consulter le <a
+      >) / hébergement Cloudflare Inc. (101 Townsend St, San Francisco, CA 94107, Etats-Unis)
+ / consulter le <a
         target="_blank"
         rel="noopener"
         href="https://github.com/antoineboquet/bailly.app">code&nbsp;source</a
       >.
     </p>
-    <p>Version des données&nbsp;: 28 février 2023.</p>
+    <p class="text-secondary-800 dark:text-secondary-400 font-bold">Version des données&nbsp;: <span class="text-secondary-950 dark:text-secondary-300">28 février 2023</span>.</p>
   </section>
 
   <section>
-    <h2>Bailly 2020 Hugo Chávez</h2>
-    <p>
+    <h2 class="text-secondary-950 dark:text-secondary-200">Bailly 2020 Hugo Chávez</h2>
+    <p class="text-secondary-800 dark:text-secondary-400">
       Gérard Gréco, André Charbonnet, Mark De Wilde, Bernard Maréchal
       <em
         ><ModalLink
@@ -41,7 +38,7 @@ const { class: className } = Astro.props;
       > / licence <em
         >Creative Commons Attribution - Pas d'Utilisation Commerciale - Pas de
         Modification</em
-      > (CC&nbsp;BY-NC-ND&nbsp;4.0) (<a
+      > (CC&nbsp;BY-NC-ND&nbsp;4.0 ; <a
         href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr"
         target="_blank"
         rel="noopener">résumé</a
@@ -58,8 +55,8 @@ const { class: className } = Astro.props;
   </section>
 
   <section>
-    <h2>Analyseur morphologique « Morpheus »</h2>
-    <p>
+    <h2 class="text-secondary-950 dark:text-secondary-200">Analyseur morphologique « Morpheus »</h2>
+    <p class="text-secondary-800 dark:text-secondary-400">
       Gregory Crane <em>et al.</em> pour le compte de l'université Tufts / licence
       <em>Creative Commons Attribution-ShareAlike 3.0 United States</em>
       (CC&nbsp;BY-SA&nbsp;3.0&nbsp;US) (<a
