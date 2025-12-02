@@ -91,6 +91,12 @@ else title += " — Bailly.app";
     >
       <slot />
     </main>
+
+    {
+      import.meta.env.PROD && (
+        <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+      )
+    }
   </body>
 </html>
 
